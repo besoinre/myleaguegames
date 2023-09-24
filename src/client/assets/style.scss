@@ -1,0 +1,52 @@
+@import '~bootstrap/scss/bootstrap';
+
+* {
+    font-family: Roboto;
+  }
+
+.sidebar{
+    min-height: 100vh;
+}
+
+.users-list:nth-child(even) {
+  background-color: #7bbfff; 
+  
+}
+
+.users-list:nth-child(odd) {
+  background-color: #91caff; 
+}
+
+.users-list:hover {
+  cursor: pointer;
+  background-color: #57aeff; 
+  
+}
+
+.game-row{
+  max-height: 15vh;
+}
+
+.champion-game-icon {
+  max-height: 10vh;
+}
+
+.game-row:nth-child(even) {
+  background-color: #cee7ff; 
+  
+}
+
+.game-row:nth-child(odd) {
+  background-color: #e2f1ff; 
+}
+
+.user-name-lvl {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.user-rank {
+  font-size: small;
+  font-weight: lighter;
+  margin-bottom: 0px;
+}
