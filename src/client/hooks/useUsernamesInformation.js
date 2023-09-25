@@ -8,7 +8,7 @@ export default function useUsernamesInformation(userName) {
     const [apiError, setApiError] = useState({})
 
     useEffect(() => {
-        leagueAPI.get(`/api/user/${userName}`)
+        leagueAPI.get(`/api/user/information/${userName}`)
             .then(response => {                
                 setUserData(response.data)
                 setApiError({})

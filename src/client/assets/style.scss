@@ -50,3 +50,15 @@
   font-weight: lighter;
   margin-bottom: 0px;
 }
+
+.search-result{
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: lightblue;
+}
+
+.search-result:hover{
+  background-color:rgb(160, 160, 160); 
+  cursor: pointer;
+}

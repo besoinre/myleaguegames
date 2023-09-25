@@ -9,6 +9,16 @@ const leagueAPI = axios.create({
     }
 });
 
+function checkSummonerExistence(userName, res) {    
+    leagueAPI.get(`summoner/v4/summoners/by-name/${userName}`)
+        .then(response => {
+           res.json(response.data)
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });
+        });
+} 
+
 function getSummonerInformation(userName, res) {    
     leagueAPI.get(`summoner/v4/summoners/by-name/${userName}`)
         .then(response => {
@@ -30,4 +40,4 @@ function getSummonerInformation(userName, res) {
         });
 } 
 
-module.exports = { getSummonerInformation };
+module.exports = { getSummonerInformation, checkSummonerExistence };

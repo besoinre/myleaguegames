@@ -13,7 +13,7 @@ const UserList = (props) => {
                 {
                     users.length > 0 ?
                         users.map((element, index) => (
-                            <UserItem user={element} index={index} onSubmit={onSubmit}></UserItem>
+                            <UserItem user={element} index={index} removeItem={onSubmit}></UserItem>
                         )) : <ListGroup.Item>No users were added yet</ListGroup.Item>
                 }
             </ListGroup >
