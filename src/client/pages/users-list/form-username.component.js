@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Form, Card } from 'react-bootstrap';
-import UserList from './user-list.component';
+import { Button, Form, Card, ListGroup } from 'react-bootstrap';
+import UserItem from './user-item.component';
 import { useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useUsernameExistence from '../../hooks/useUsernameExistence';
@@ -20,12 +20,10 @@ const FormUserName = () => {
     }
 
     let deleteUserName = (e) => {
-        e.preventDefault();
-        let nameIndex = e.target.index.value;
-        let usersNames = users.names;
-        usersNames.splice(parseInt(nameIndex), 1);
-        setUsers(users)
-        setUsers({ ...users, names: usersNames })
+        e.preventDefault()
+        const userName = e.target.userName.value
+        const updatedUsers = users.names.filter((user) => user !== userName);
+        setUsers({ names: updatedUsers });
     }
 
     let userNameInputOnChange = (e) => {
@@ -47,26 +45,33 @@ const FormUserName = () => {
                         {
                             newUserName.trim() !== "" && isLoading
                                 ?
-                                <Card bg="light" text="dark" className="m-1 d-flex justify-content-center align-items-center p-2">
+                                <Card bg="light" text="dark" className="mt-2 d-flex justify-content-center align-items-center p-2">
                                     <ClassicSpinner />
                                 </Card>
                                 :
                                 newUserName.trim() !== "" && Object.keys(apiError).length !== 0
                                     ?
-                                    <Card bg="danger" text="white" className="m-1">
+                                    <Card bg="danger" text="white" className="mt-2">
                                         <Card.Body>User {newUserName} doesn't exist.</Card.Body>
                                     </Card>
                                     :
                                     newUserName.trim() !== "" && Object.keys(apiError).length === 0
                                         ?
-                                        <Card bg="light" text="dark" className="m-1 p-0">
-                                            <Card.Body className="p-0"><Button className="search-result" type="submit">{userData.name} lv.{userData.summonerLevel}</Button></Card.Body>
+                                        <Card bg="light" text="dark" className="mt-2 p-0">
+                                            <Card.Body className="p-0"><Button className="search-result" type="submit">Click to add : {userData.name} lv.{userData.summonerLevel}</Button></Card.Body>
                                         </Card>
                                         :
                                         <></>
                         }
                     </Form>
-                    <UserList users={users.names} onSubmit={deleteUserName}></UserList>
+                    <ListGroup className='mt-2' as="ul">
+                        {
+                            users.names.length > 0 ?
+                                users.names.map((element, index) => (
+                                    <UserItem key={element} user={element} removeItem={deleteUserName}></UserItem>
+                                )) : <ListGroup.Item>No users were added yet</ListGroup.Item>
+                        }
+                    </ListGroup >
                 </Card.Body>
             </Card>
         </>

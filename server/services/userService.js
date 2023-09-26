@@ -1,13 +1,4 @@
-const axios = require('axios');
-require('dotenv').config();
-
-const leagueAPI = axios.create({
-    baseURL: `https://euw1.api.riotgames.com/lol/`,
-    headers: {
-        accept: 'application/json',
-        "X-Riot-Token": process.env.REACT_APP_API_KEY_RIOT
-    }
-});
+const leagueAPI = require('./leagueAPI')
 
 function checkSummonerExistence(userName, res) {    
     leagueAPI.get(`summoner/v4/summoners/by-name/${userName}`)
@@ -38,6 +29,7 @@ function getSummonerInformation(userName, res) {
         .catch(error => {
             res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });
         });
-} 
+}
+
 
 module.exports = { getSummonerInformation, checkSummonerExistence };
