@@ -1,7 +1,7 @@
-const leagueAPI = require('./leagueAPI')
+const {leagueAPIeuw} = require('./leagueAPI')
 
 function checkSummonerExistence(userName, res) {    
-    leagueAPI.get(`summoner/v4/summoners/by-name/${userName}`)
+    leagueAPIeuw.get(`summoner/v4/summoners/by-name/${userName}`)
         .then(response => {
            res.json(response.data)
         })
@@ -11,10 +11,10 @@ function checkSummonerExistence(userName, res) {
 } 
 
 function getSummonerInformation(userName, res) {    
-    leagueAPI.get(`summoner/v4/summoners/by-name/${userName}`)
+    leagueAPIeuw.get(`summoner/v4/summoners/by-name/${userName}`)
         .then(response => {
             let summonerData = response.data
-            leagueAPI.get(`league/v4/entries/by-summoner/${summonerData.id}`)
+            leagueAPIeuw.get(`league/v4/entries/by-summoner/${summonerData.id}`)
             .then(response => {
                 let mergedResponses = {
                     summonerData : summonerData,

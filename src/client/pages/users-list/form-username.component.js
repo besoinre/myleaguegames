@@ -6,23 +6,23 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import useUsernameExistence from '../../hooks/useUsernameExistence';
 import ClassicSpinner from '../../components/spinner'
 
+
 const FormUserName = () => {
 
     const [users, setUsers] = useLocalStorage("users", { names: [] });
     const [newUserName, setNewUserName] = useState("");
     const [userData, isLoading, apiError] = useUsernameExistence(newUserName)
+    
 
     let addUserName = (e) => {
         e.preventDefault();
-        let currentUsers = users.names;
-        setUsers({ ...users, names: [...currentUsers, newUserName] })
+        setUsers({ ...users, names: [...users.names, newUserName] })
         setNewUserName("")
     }
 
     let deleteUserName = (e) => {
         e.preventDefault()
-        const userName = e.target.userName.value
-        const updatedUsers = users.names.filter((user) => user !== userName);
+        const updatedUsers = users.names.filter((user) => user !== e.target.userName.value);
         setUsers({ names: updatedUsers });
     }
 
@@ -32,7 +32,7 @@ const FormUserName = () => {
 
     return (
         <>
-            <Card>
+            <Card className='mt-2'>
                 <Card.Header>
                     Summoners List
                 </Card.Header>
