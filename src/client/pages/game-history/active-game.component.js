@@ -1,14 +1,15 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Card, Container, ListGroup, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import useActiveGame from '../../hooks/useActiveGame';
 import { GlobalStateContext } from '../../App'
 import queuesJSON from '../../assets/queues.json'
 import ClassicSpinner from '../../components/spinner';
+import ActiveGameTeam from './active-game-team.component';
 
 const ActiveGame = () => {
 
-    const { globalState } = useContext(GlobalStateContext);
+    const { globalState, setGlobalState } = useContext(GlobalStateContext);
 
     // To get active game, use summonerData.id
     let [gameData, isLoading, apiError] = useActiveGame(globalState.selectedUserId)
@@ -20,52 +21,46 @@ const ActiveGame = () => {
         isSelected ?
             <Card>
                 < Card.Body >
-                    <Card.Title><strong>{globalState.selectedUserName}</strong> Active Game</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                        {
-                            isInGame ?
-                                queuesJSON.filter((element) =>
-                                    element.queueId === parseInt(gameData.gameQueueConfigId)
-                                )[0].description
-                                :
-                                isLoading ?
-                                    <ClassicSpinner />
-                                    :
-                                    "User is not is game"
-                        }
-                    </Card.Subtitle>
-                    <Card.Text>
-                        {
-                            isInGame ?
-                                gameData.participants.map((element) => {
-                                    let [participant1, participant2] = element
-                                    return (
-                                        <ListGroup horizontal>
-                                            <Container>
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <ListGroup.Item className='game-row'>
-                                                            <div className="fw-bold">{participant1.summonerName} {participant1.rank} {participant1.lp}</div>
-                                                            {participant1.champion} {participant1.role}
-                                                        </ListGroup.Item>
-                                                    </Col>
-                                                    {
-                                                        participant2 &&
-                                                        <Col md={6}>
-                                                            <ListGroup.Item className='game-row'>
-                                                                <div className="fw-bold">{participant2.summonerName} {participant2.rank} {participant2.lp}</div>
-                                                                {participant2.champion} {participant2.role}
-                                                            </ListGroup.Item>
-                                                        </Col>
-                                                    }
+                    <div className="d-flex justify-content-between align-items-start">
+                        <div>
+                            <Card.Title>
+                                <strong>{globalState.selectedUserName}</strong> Active Game
+                            </Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">
+                                {
+                                    isInGame ?
+                                        queuesJSON.filter((element) =>
+                                            element.queueId === parseInt(gameData.gameQueueConfigId)
+                                        )[0].description
+                                        :
+                                        isLoading ?
+                                            <ClassicSpinner />
+                                            :
+                                            "User is not is game"
+                                }
+                            </Card.Subtitle>
+                        </div>
+                        <Button
+                            onClick={() => setGlobalState({ ...globalState, refresh : !globalState.refresh })}
+                        >Refresh</Button>
+                    </div>
 
-                                                </Row>
-                                            </Container>
-                                        </ListGroup>
-                                    )
-                                })
+                    <Card.Text>
+
+                        {
+                            isInGame ?
+                                <Container>
+                                    <Row>
+                                        <Col md={6}>
+                                            <ActiveGameTeam team={gameData.teamsConfiguration[0]} />
+                                        </Col>
+                                        <Col md={6}>
+                                            <ActiveGameTeam team={gameData.teamsConfiguration[1]} />
+                                        </Col>
+                                    </Row>
+                                </Container>
                                 :
-                                ""
+                                <></>
                         }
                     </Card.Text>
                 </Card.Body >

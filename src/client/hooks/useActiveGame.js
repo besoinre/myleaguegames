@@ -18,39 +18,45 @@ export default function useActiveGame(encryptedSummonerId) {
         leagueAPI.get(`/api/active-game/${encryptedSummonerId}`)
             .then(response => {
                 const data = response.data
-                let updatedParticipants = data.participants.map((participant) => {
-                    let currentParticipant;
-                    Object.keys(patch).every((key) => {
-                        if (parseInt(patch[key].key) === parseInt(participant.championId)) {
-                            currentParticipant = {
-                                ...participant,
-                                champion: patch[key].name,
-                                role: patch[key].role
-                            }
-                            return false
-                        }
-                        return true
+                const participantsByTeam = {}
+
+                data.participants.forEach((participant) => {
+                    const { teamId } = participant
+                    if (!participantsByTeam[teamId]) {
+                        participantsByTeam[teamId] = [];
+                    }
+                    participantsByTeam[teamId].push({
+                        ...participant,
+                        champion: patch[participant.championId]
                     })
-                    return currentParticipant
                 })
 
-                const groupedByRole = updatedParticipants.reduce((result, participant) => {
-                    const { role } = participant;
-                    const existingGroup = result.find((group) => group[0]?.role === role);
-                    if (existingGroup) {
-                        existingGroup.push(participant);
-                    } else {
-                        result.push([participant]);
-                    }
-                    return result;
-                }, []);
+                const rolesOrder = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"]
+                let bestPermutations = []
 
-                const rolesOrder = ["top", "jungle", "mid", "bottom","support"]
-                groupedByRole.sort((a, b) => rolesOrder.indexOf(a[0].role) - rolesOrder.indexOf(b[0].role))
-                
+                for(const teamId in participantsByTeam){
+                    const team = participantsByTeam[teamId]
+
+                    const permutations = getPermutations(team)
+                    let bestPermutation = []
+                    let bestResult = 0
+                    permutations.forEach((permutation) => {
+                        let i = 0                        
+                        let currentResult = 0
+                        permutation.forEach((participant) => {
+                            currentResult += participant.champion.rolesPlayrate[rolesOrder[i]].playRate
+                            i++
+                        })
+                        bestResult = Math.max(bestResult, currentResult)
+                        if (bestResult === currentResult) {
+                            bestPermutation = permutation
+                        }
+                    })
+                    bestPermutations.push(bestPermutation)
+                }
                 setGameData({
                     ...data,
-                    participants: groupedByRole
+                    teamsConfiguration: bestPermutations
                 })
                 setIsLoading(false)
             })
@@ -58,7 +64,23 @@ export default function useActiveGame(encryptedSummonerId) {
                 setApiError(error)
                 setIsLoading(false)
             });
-    }, [encryptedSummonerId]);
+    }, [encryptedSummonerId, globalState.refresh]);
 
     return [gameData, isLoading, apiError]
+}
+
+function getPermutations(arr) {
+    const result = [];
+    function permute(arr, current = []) {
+        if (arr.length === 0) {
+            result.push(current);
+            return;
+        }
+        for (let i = 0; i < arr.length; i++) {
+            const remaining = arr.slice(0, i).concat(arr.slice(i + 1));
+            permute(remaining, current.concat(arr[i]));
+        }
+    }
+    permute(arr);
+    return result;
 }

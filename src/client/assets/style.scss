@@ -1,43 +1,59 @@
 @import '~bootstrap/scss/bootstrap';
 
 * {
-    font-family: Roboto;
-  }
-
-.sidebar{
-    min-height: 100vh;
+  font-family: Roboto;
 }
 
-.users-list:nth-child(even) {
-  background-color: #7bbfff; 
-  
-}
-
-.users-list:nth-child(odd) {
-  background-color: #91caff; 
-}
-
-.users-list:hover {
-  cursor: pointer;
-  background-color: #57aeff; 
-  
-}
-
-.game-row{
+.game-row {
   max-height: 15vh;
 }
 
-.champion-game-icon {
-  max-height: 10vh;
-}
-
 .game-row:nth-child(even) {
-  background-color: #cee7ff; 
-  
+  background-color: #cee7ff;
 }
 
 .game-row:nth-child(odd) {
-  background-color: #e2f1ff; 
+  background-color: #e2f1ff;
+}
+
+#header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.search-result {
+  height: 3em;
+}
+
+
+.search-result:hover {
+  cursor: pointer;
+}
+
+
+.sidebar {
+  min-height: 100vh;
+}
+
+.delete-user{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  border-radius: 0 0.5em 0.5em 0;
+}
+
+.user-item:hover{
+  background-color: #ced2d5 !important;
+}
+
+.user-row {
+  border-radius: 0.5em 0 0 0.5em;
+  cursor: pointer
+}
+
+.user-row-selected{
+  border: 2px solid #0d6efd;
 }
 
 .user-name-lvl {
@@ -49,16 +65,4 @@
   font-size: small;
   font-weight: lighter;
   margin-bottom: 0px;
-}
-
-.search-result{
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: lightblue;
-}
-
-.search-result:hover{
-  background-color:rgb(160, 160, 160); 
-  cursor: pointer;
 }

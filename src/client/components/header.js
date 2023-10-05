@@ -5,21 +5,22 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="bg-primary ml-2">
+            <Navbar className="bg-primary bg-gradient ml-2">
                 <Navbar.Brand href="#">
                     <img
                         alt=""
-                        src="../LoL_icon.svg"
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
+                        src="../teemo.png"
+                        width="50"
+                        height="50"
+                        className="d-inline-block align-top mx-3"
                     />{' '}
-                    My League Games
+                    <span id='header-title'>
+                        MY LEAGUE GAMES
+                    </span>
                 </Navbar.Brand>
             </Navbar>
         </>
     );
-
 }
 
 export default (Header);

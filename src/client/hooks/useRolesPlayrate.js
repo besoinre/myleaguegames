@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import leagueAPI from '../api/leagueAPI';
 
-export default function usePatchData(globalState, dispatchGlobalState) {
+export default function useRolesPlayrate(globalState, dispatchGlobalState) {
 
     useEffect(() => {
         leagueAPI.get(`/api/champions-position`)

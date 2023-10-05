@@ -3,7 +3,9 @@ import { createContext } from 'react';
 import { useEffect, useState } from "react";
 import leagueAPI from './api/leagueAPI';
 
-const defaultGlobalState = {}
+const defaultGlobalState = {
+  refresh:false
+}
 
 const GlobalStateContext = createContext(null);
 
@@ -11,6 +13,7 @@ function App() {
 
   const [globalState, setGlobalState] = useState(defaultGlobalState)
 
+  // TODO : replace with custome hook useRolesPlayrate
   useEffect(() => {
     leagueAPI.get(`/api/champions-position`)
       .then(response => {

@@ -1,23 +1,41 @@
-import { useEffect, useState } from "react";
+import { useReducer } from "react";
 
-function getSavedValue(key, initialValue){
+function getSavedValue(key, initialValue) {
     let storedValue = JSON.parse(localStorage.getItem(key))
-    
-    if(storedValue) return storedValue
-    
-    return initialValue
+    return (storedValue ? storedValue : initialValue)
 }
-
 
 export default function useLocalStorage(key, initialValue) {
     
-    const [value, setValue] = useState(() => {    
-        return getSavedValue(key, initialValue)
-    })
+    const [value, dispatch] = useReducer(usernamesReducer, getSavedValue(key, initialValue))
 
-    useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value))
-    }, [value])
+    function usernamesReducer(state, action) {
+        let newState = state
+        switch (action.type) {
+            case "ADD": {
+                if(!state.names.includes(action.userName)){
+                    newState = {
+                        ...state,
+                        names: [...state.names, action.userName]
+                    }
+                }
+                break;
+            }
 
-    return [value, setValue]
+            case "DELETE":{
+                if(state.names.includes(action.userName)){
+                    const updatedUserNamesList = state.names.filter((element) => element !== action.userName)
+                    newState =  {
+                        ...state,
+                        names : updatedUserNamesList
+                    }
+                }
+                break;
+            }
+        }
+        localStorage.setItem(key, JSON.stringify(newState))
+        return newState
+    }
+
+    return [value, dispatch]
 }

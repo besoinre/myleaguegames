@@ -11,12 +11,13 @@ function getActiveGame(encryptedSummonerId, res) {
             Promise.all(participantPromises)
                 .then((responses) => {
                     const responseDataArray = responses.map((response) => response.data);
-                    const updatedParticipants = data.participants.map((participant) => {
+                    const updatedParticipants = data.participants.map((participant) => {       
                         const summonerData = responseDataArray.find((summoner) => summoner[0].summonerId === participant.summonerId);
+                        const soloqData = summonerData.filter((queue) => queue.queueType == "RANKED_SOLO_5x5")         
                         return ({
                             ...participant,
-                            rank: summonerData[0].tier + " " + summonerData[0].rank,
-                            lp: summonerData[0].leaguePoints
+                            rank: soloqData[0].tier + " " + soloqData[0].rank,
+                            lp: soloqData[0].leaguePoints
                         })
                     })
                     res.json({

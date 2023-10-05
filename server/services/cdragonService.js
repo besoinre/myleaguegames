@@ -1,7 +1,7 @@
 const axios = require('axios');
 const all_champs = {};
 
-function getChampionsPosition(res) {
+function getChampionsPosition1(res) {
     axios.get("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-champion-statistics/global/default/rcp-fe-lol-champion-statistics.js")
         .then(response => {
             const supportStats = response.data.match(/"SUPPORT":{.*?}/)[0].substring(10)
@@ -23,7 +23,7 @@ function getChampionsPosition(res) {
                         const champion = champions[keyChampion];
                         let role = ""
                         for (const roleObject in champsRole) {
-                            if (JSON.parse(champsRole[roleObject]).hasOwnProperty(champion.key)){
+                            if (JSON.parse(champsRole[roleObject]).hasOwnProperty(champion.key)) {
                                 role = roleObject
                             }
                         }
@@ -33,6 +33,37 @@ function getChampionsPosition(res) {
                         }
                     }
                     res.json(champions)
+                })
+                .catch(err => {
+                    console.error("Error getting champion data:", err);
+                });
+        })
+        .catch(err => {
+            console.error("Error getting champion statistics data:", err);
+        });
+}
+
+function getChampionsPosition(res) {
+    axios.get("https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/championrates.json")
+        .then(response => {
+            const championsRolePlayrate = response.data.data
+            axios.get("https://ddragon.leagueoflegends.com/cdn/13.19.1/data/en_US/champion.json")
+                .then(response => {
+                    let champions = response.data.data
+                    
+                    for (const keyChampion in championsRolePlayrate) {
+                        
+                        for (const championName in champions) {
+                            if (champions[championName]["key"] === keyChampion.toString()) {
+                                championsRolePlayrate[keyChampion] = {
+                                    rolesPlayrate : championsRolePlayrate[keyChampion],
+                                    championData :champions[championName]
+                                }
+                                break
+                            }
+                        }    
+                    }
+                    res.json(championsRolePlayrate)
                 })
                 .catch(err => {
                     console.error("Error getting champion data:", err);
