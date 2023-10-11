@@ -1,7 +1,7 @@
 import Layout from './components/layout';
 import { createContext } from 'react';
-import { useEffect, useState } from "react";
-import leagueAPI from './api/leagueAPI';
+import { useState } from "react";
+import useRolesPlayrate from './hooks/useRolesPlayrate';
 
 const defaultGlobalState = {
   refresh:false
@@ -13,20 +13,11 @@ function App() {
 
   const [globalState, setGlobalState] = useState(defaultGlobalState)
 
-  // TODO : replace with custome hook useRolesPlayrate
-  useEffect(() => {
-    leagueAPI.get(`/api/champions-position`)
-      .then(response => {
-        setGlobalState({ ...globalState, patch: response.data })
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }, []);
-
+  useRolesPlayrate(globalState, setGlobalState)
+  
   return (
     <GlobalStateContext.Provider value={{ globalState : globalState, setGlobalState: setGlobalState}}>
-      <div>
+      <div className='overflow-hidden'>
         <Layout></Layout>
       </div>
     </GlobalStateContext.Provider>

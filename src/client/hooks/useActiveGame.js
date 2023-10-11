@@ -12,58 +12,64 @@ export default function useActiveGame(encryptedSummonerId) {
     const { globalState } = useContext(GlobalStateContext);
     let patch = globalState.patch
     useEffect(() => {
-        setIsLoading(true)
-        setGameData({})
-        setApiError({})
-        leagueAPI.get(`/api/active-game/${encryptedSummonerId}`)
-            .then(response => {
-                const data = response.data
-                const participantsByTeam = {}
+        if (typeof encryptedSummonerId !== "undefined") {
+            setIsLoading(true)
+            setGameData({})
+            setApiError({})
+            leagueAPI.get(`/api/active-game/${encryptedSummonerId}`)
+                .then(response => {
+                    const data = response.data
+                    const participantsByTeam = {}
 
-                data.participants.forEach((participant) => {
-                    const { teamId } = participant
-                    if (!participantsByTeam[teamId]) {
-                        participantsByTeam[teamId] = [];
-                    }
-                    participantsByTeam[teamId].push({
-                        ...participant,
-                        champion: patch[participant.championId]
-                    })
-                })
-
-                const rolesOrder = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"]
-                let bestPermutations = []
-
-                for(const teamId in participantsByTeam){
-                    const team = participantsByTeam[teamId]
-
-                    const permutations = getPermutations(team)
-                    let bestPermutation = []
-                    let bestResult = 0
-                    permutations.forEach((permutation) => {
-                        let i = 0                        
-                        let currentResult = 0
-                        permutation.forEach((participant) => {
-                            currentResult += participant.champion.rolesPlayrate[rolesOrder[i]].playRate
-                            i++
-                        })
-                        bestResult = Math.max(bestResult, currentResult)
-                        if (bestResult === currentResult) {
-                            bestPermutation = permutation
+                    data.participants.forEach((participant) => {
+                        const { teamId } = participant
+                        if (!participantsByTeam[teamId]) {
+                            participantsByTeam[teamId] = [];
                         }
+                        participantsByTeam[teamId].push({
+                            ...participant,
+                            champion: patch[participant.championId]
+                        })
                     })
-                    bestPermutations.push(bestPermutation)
-                }
-                setGameData({
-                    ...data,
-                    teamsConfiguration: bestPermutations
+
+                    const rolesOrder = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"]
+                    let bestPermutations = []
+
+                    for (const teamId in participantsByTeam) {
+                        const team = participantsByTeam[teamId]
+
+                        const permutations = getPermutations(team)
+                        let bestPermutation = []
+                        let bestResult = 0
+                        permutations.forEach((permutation) => {
+                            let i = 0
+                            let currentResult = 0
+                            permutation.forEach((participant) => {
+                                if((participant.spell1Id === 11 || participant.spell2ID === 11) && rolesOrder[i] === "JUNGLE"){
+                                    currentResult += 999
+                                }else{
+                                    currentResult += participant.champion.rolesPlayrate[rolesOrder[i]].playRate
+                                }
+                                i++
+                            })
+                            bestResult = Math.max(bestResult, currentResult)
+                            if (bestResult === currentResult) {
+                                bestPermutation = permutation
+                            }
+                        })
+                        bestPermutations.push(bestPermutation)
+                    }
+                    setGameData({
+                        ...data,
+                        teamsConfiguration: bestPermutations
+                    })
+                    setIsLoading(false)
                 })
-                setIsLoading(false)
-            })
-            .catch(error => {
-                setApiError(error)
-                setIsLoading(false)
-            });
+                .catch(error => {
+                    setApiError(error)
+                    setIsLoading(false)
+                });
+        }
     }, [encryptedSummonerId, globalState.refresh]);
 
     return [gameData, isLoading, apiError]

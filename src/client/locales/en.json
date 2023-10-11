@@ -1,4 +1,7 @@
 {
     "RANKED_SOLO_5x5" : "SoloQ",
-    "RANKED_FLEX_SR" : "FlexQ"
+    "RANKED_FLEX_SR" : "FlexQ",
+    "5v5 Ranked Solo games": "SoloQ",
+    "5v5 ARAM games": "ARAM",
+    "5v5 Ranked Flex games": "FlexQ"
 }

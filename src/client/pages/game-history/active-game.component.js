@@ -19,8 +19,8 @@ const ActiveGame = () => {
 
     return (
         isSelected ?
-            <Card>
-                < Card.Body >
+            <Card className='m-2'>
+                <Card.Body>
                     <div className="d-flex justify-content-between align-items-start">
                         <div>
                             <Card.Title>
@@ -39,30 +39,26 @@ const ActiveGame = () => {
                                             "User is not is game"
                                 }
                             </Card.Subtitle>
-                        </div>
+                        </div>                            
                         <Button
-                            onClick={() => setGlobalState({ ...globalState, refresh : !globalState.refresh })}
+                            onClick={() => setGlobalState({ ...globalState, refresh: !globalState.refresh })}
                         >Refresh</Button>
                     </div>
-
-                    <Card.Text>
-
-                        {
-                            isInGame ?
-                                <Container>
-                                    <Row>
-                                        <Col md={6}>
-                                            <ActiveGameTeam team={gameData.teamsConfiguration[0]} />
-                                        </Col>
-                                        <Col md={6}>
-                                            <ActiveGameTeam team={gameData.teamsConfiguration[1]} />
-                                        </Col>
-                                    </Row>
-                                </Container>
-                                :
-                                <></>
-                        }
-                    </Card.Text>
+                    {
+                        isInGame ?
+                            <Container className='mx-0'>
+                                <Row>
+                                    <Col md={6} className='px-0'>
+                                        <ActiveGameTeam team={gameData.teamsConfiguration[0]} leftTeam={true} />
+                                    </Col>
+                                    <Col md={6} className='px-0'>
+                                        <ActiveGameTeam team={gameData.teamsConfiguration[1]} leftTeam={false} />
+                                    </Col>
+                                </Row>
+                            </Container>
+                            :
+                            <></>
+                    }
                 </Card.Body >
             </Card >
             :

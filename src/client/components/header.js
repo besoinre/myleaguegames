@@ -5,7 +5,7 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="bg-primary bg-gradient ml-2">
+            <Navbar className="bg-primary bg-gradient ml-2 header">
                 <Navbar.Brand href="#">
                     <img
                         alt=""

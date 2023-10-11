@@ -3,8 +3,7 @@
   "name": "My League Games",
   "icons": [
     {
-      "src": "LoL.ico",
-      "sizes": "512x512",
+      "src": "shroom.ico",
       "type": "image/x-icon"
     }
   ],

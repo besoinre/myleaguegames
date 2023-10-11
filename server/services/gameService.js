@@ -8,18 +8,29 @@ function getActiveGame(encryptedSummonerId, res) {
             data.participants.forEach((participant) => {
                 participantPromises.push(leagueAPIeuw.get(`league/v4/entries/by-summoner/${participant.summonerId}`));
             });
-            Promise.all(participantPromises)
+            Promise.allSettled(participantPromises)
                 .then((responses) => {
-                    const responseDataArray = responses.map((response) => response.data);
-                    const updatedParticipants = data.participants.map((participant) => {       
-                        const summonerData = responseDataArray.find((summoner) => summoner[0].summonerId === participant.summonerId);
-                        const soloqData = summonerData.filter((queue) => queue.queueType == "RANKED_SOLO_5x5")         
-                        return ({
-                            ...participant,
-                            rank: soloqData[0].tier + " " + soloqData[0].rank,
-                            lp: soloqData[0].leaguePoints
+                    const fulfilledResponses = responses.filter((response) => response.value.data.length !== 0)
+                    const responseDataArray = fulfilledResponses.map((response) => response.value.data)
+                    const updatedParticipants = data.participants.map(
+                        (participant) => {
+                            const summonerData = responseDataArray.find(
+                                (summoner) => summoner[0].summonerId === participant.summonerId
+                            )
+                            if (typeof summonerData !== "undefined") {
+                                const soloqData = summonerData.filter((queue) => queue.queueType === "RANKED_SOLO_5x5")
+                                if (soloqData.length > 0) {
+                                    return ({
+                                        ...participant,
+                                        rank: soloqData[0].tier + " " + soloqData[0].rank,
+                                        lp: soloqData[0].leaguePoints
+                                    })
+                                }
+                            }
+                            return ({
+                                ...participant
+                            })
                         })
-                    })
                     res.json({
                         ...data,
                         participants: updatedParticipants
@@ -28,6 +39,8 @@ function getActiveGame(encryptedSummonerId, res) {
                 .catch(error => {
                     res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });
                 })
+
+
         })
         .catch(error => {
             res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });

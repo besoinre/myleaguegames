@@ -1,19 +1,18 @@
 @import '~bootstrap/scss/bootstrap';
 
-* {
-  font-family: Roboto;
+.active-game-row{
+  height: 60px;
 }
 
-.game-row {
-  max-height: 15vh;
+.delete-user{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  border-radius: 0 0.5em 0.5em 0;
 }
 
-.game-row:nth-child(even) {
-  background-color: #cee7ff;
-}
-
-.game-row:nth-child(odd) {
-  background-color: #e2f1ff;
+.history-game-row{
+  border-radius: 0.5em;
 }
 
 #header-title {
@@ -21,6 +20,21 @@
   font-weight: bold;
   color: whitesmoke;
 }
+
+.header {
+  height: 10vh; 
+  position: fixed; 
+  top: 0;
+  width: 100%;
+  z-index: 1
+}
+
+.main-container {
+  margin-top: 10vh;
+  margin-left: 25vw;
+  z-index: 2
+}
+
 
 .search-result {
   height: 3em;
@@ -33,18 +47,25 @@
 
 
 .sidebar {
-  min-height: 100vh;
+  width: 25vw;
+  margin-top: 10vh;
+  height: 90vh;
+  overflow-y: scroll;
+  position: fixed; 
+  left: 0;
+  z-index: 1;
 }
 
-.delete-user{
-  height: 100%;
-  width: 100%;
-  vertical-align: middle;
-  border-radius: 0 0.5em 0.5em 0;
+.team-blue{
+  border-left: 4px solid blue;
+}
+
+.team-red{
+  border-left: 4px solid red;
 }
 
 .user-item:hover{
-  background-color: #ced2d5 !important;
+  background-color: #F8F9FA !important;
 }
 
 .user-row {
@@ -53,7 +74,8 @@
 }
 
 .user-row-selected{
-  border: 2px solid #0d6efd;
+  border-left: 8px solid #0d6efd;
+
 }
 
 .user-name-lvl {

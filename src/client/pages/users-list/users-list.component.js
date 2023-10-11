@@ -10,7 +10,7 @@ const UsersList = () => {
 
   return (
     <>
-      <Container className='sidebar bg-primary-subtle'>
+      <Container className='sidebar bg-light'>
         <Row>
           <Col md={12} className='my-2'>
             <FormUserName dispatchUsers={dispatchUsers} />
