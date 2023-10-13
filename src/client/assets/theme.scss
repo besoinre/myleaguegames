@@ -1,0 +1,61 @@
+
+$themes: (
+  light: (
+    headerBackground: #0d6efd,
+    headerText: #eee,
+    sidebarBackground: #ddd,
+    userBackground: #fff,
+    userBackgroundHover: #ededed,
+    userText: #000,
+    activeGameBackground: #fff,
+    activeGameText: #000,
+    activeGameRowBackground: #fff,
+    activeGameRowText: #000,
+    mainContainerBackground: #eee,
+    gameWonBackground: #cadbff,
+    gameWonText: #4171D6,
+    gameLostBackground: #ffd7dd,
+    gameLostText: #D71A45,
+    gameRowText: #212529
+  ),
+  dark: (
+    headerBackground: #0d6efd,
+    headerText: #e2e3e5,
+    sidebarBackground: #3b3b3b,
+    userBackground: #606060,
+    userBackgroundHover: #505050,
+    userText: #fff,
+    activeGameBackground: #606060,
+    activeGameText: #fff,
+    activeGameRowBackground: #606060,
+    activeGameRowText: #fff,
+    mainContainerBackground: #505050,
+    gameWonBackground: #45577e,
+    gameWonText: #4983E8,
+    gameLostBackground: #59343B,
+    gameLostText: #DA3A45,
+    gameRowText: #e2e3e5
+  ),
+);
+
+@mixin themify($themes) {
+    @each $theme, $map in $themes {
+      .theme-#{$theme} & {
+        $theme-map: () !global;
+        @each $key, $submap in $map {
+          $value: map-get(map-get($themes, $theme), '#{$key}');
+          $theme-map: map-merge(
+            $theme-map,
+              (
+                $key: $value,
+              )
+            ) !global;
+          }
+          @content;
+          $theme-map: null !global;
+        }
+     }
+  }
+  @function themed($key) {
+    @return map-get($theme-map, $key);
+  }

@@ -10,8 +10,8 @@ const ActiveGameTeam = ({ team, leftTeam }) => {
         <ListGroup horizontal>
             <Container>
                 {team.map((participant, index) =>
-                    <Row className={'active-game-row '} key={participant.summonerName}>
-                        <Col md={10} className={'px-0 ' + (leftTeam ? 'team-blue' : 'team-red')}>
+                    <Row className={'active-game-row'} key={participant.summonerName}>
+                        <Col md={10} className={'active-game-participant px-0 ' + (leftTeam ? 'team-blue' : 'team-red')}>
                             <ListGroup.Item className='w-100'>
                                 <Row>
                                     <Col md={"auto pe-0"}>
@@ -41,7 +41,15 @@ const ActiveGameTeam = ({ team, leftTeam }) => {
                                         />
                                     </Col>
                                     <Col md={"auto"}>
-                                        <div className="fw-bold">{participant.summonerName}</div> {participant.rank} {participant.lp}
+                                        <div className="fw-bold">{participant.summonerName}</div>
+                                        {
+                                            participant.hasOwnProperty("rank") ?
+                                            <>{participant.rank} {participant.lp}</>
+                                            :
+                                            "UNRANKED"
+                                        }
+                                        
+                                        
                                     </Col>
                                 </Row>
                             </ListGroup.Item>

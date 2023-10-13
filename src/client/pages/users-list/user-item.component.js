@@ -28,7 +28,7 @@ const UserItem = ({ user, dispatchUsers }) => {
                     :
                     Object.keys(apiError).length !== 0
                         ?
-                        <ListGroup.Item className='users-list bg-light' as="li">
+                        <ListGroup.Item className='users-list user-item mb-2' as="li">
                             <Form onSubmit={(e) => deleteUserName(e)} className="d-flex justify-content-between align-items-start" >
                                 <div>
                                     <p className='user-name-lvl'>API error loading {user} : {apiError.code}</p>
@@ -42,7 +42,7 @@ const UserItem = ({ user, dispatchUsers }) => {
                             <Row className='mb-2'>
                                 <Col md={10} className={'pe-0 user-row'}>
                                     <ListGroup.Item
-                                        className={(userSelected ? 'user-row-selected' : '') + ' bg-white user-item'}
+                                        className={(userSelected ? 'user-row-selected' : '') + ' user-item'}
                                         as="li"
                                         onClick={() => setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid })}
                                     >

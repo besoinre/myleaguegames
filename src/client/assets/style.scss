@@ -1,81 +1,160 @@
 @import '~bootstrap/scss/bootstrap';
+@import 'theme.scss';
 
-.active-game-row{
+.header {
+  @include themify($themes) {
+    background: themed('headerBackground');
+    color: themed('headerText')
+  }
+}
+
+.sidebar {
+  @include themify($themes) {
+    background: themed('sidebarBackground');
+  }
+}
+
+.main-container {
+  @include themify($themes) {
+    background: themed('mainContainerBackground');
+  }
+}
+
+.user-item {
+  @include themify($themes) {
+    background: themed('userBackground');
+    color: themed('userText');
+  }
+}
+
+.user-item:hover {
+  @include themify($themes) {
+    background: themed('userBackgroundHover');
+  }
+
+  cursor: pointer;
+}
+
+.active-game-container {
+  @include themify($themes) {
+    background: themed('activeGameBackground');
+    color: themed('activeGameText');
+  }
+  border: none
+}
+
+.active-game-participant {
+  @include themify($themes) {
+    background: themed('activeGameRowBackground');
+    color: themed('activeGameRowText');
+  }
+}
+
+.game-won-bg {
+  @include themify($themes) {
+    background: themed('gameWonBackground');
+  }
+}
+
+.game-lost-bg {
+  @include themify($themes) {
+    background: themed('gameLostBackground');
+  }
+}
+
+.game-won-text {
+  @include themify($themes) {
+    color: themed('gameWonText');
+  }
+}
+
+.game-lost-text {
+  @include themify($themes) {
+    color: themed('gameLostText');
+  }
+}
+
+.history-game-row {
+  @include themify($themes) {
+    color: themed('gameRowText');
+  }
+}
+
+.active-game-row {
   height: 60px;
 }
 
-.delete-user{
+.delete-user {
   height: 100%;
   width: 100%;
   vertical-align: middle;
   border-radius: 0 0.5em 0.5em 0;
 }
 
-.history-game-row{
+.history-game-row {
   border-radius: 0.5em;
+  border: none;
 }
 
 #header-title {
   font-size: 2rem;
   font-weight: bold;
-  color: whitesmoke;
 }
 
 .header {
-  height: 10vh; 
-  position: fixed; 
+  height: 8vh;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1
 }
 
 .main-container {
-  margin-top: 10vh;
+  margin-top: 8vh;
   margin-left: 25vw;
-  z-index: 2
+  z-index: 2;
+  min-height: 92vh;
 }
 
+.main-container-no-user {
+  margin-top: 8vh;
+  margin-left: 25vw;
+  z-index: 2;
+  min-height: 92vh;
+  background-image: url("../../../public/rift.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white
+}
 
 .search-result {
   height: 3em;
 }
 
-
 .search-result:hover {
   cursor: pointer;
 }
 
-
 .sidebar {
   width: 25vw;
-  margin-top: 10vh;
-  height: 90vh;
+  margin-top: 8vh;
+  height: 92vh;
   overflow-y: scroll;
-  position: fixed; 
+  position: fixed;
   left: 0;
   z-index: 1;
 }
 
-.team-blue{
+.team-blue {
   border-left: 4px solid blue;
 }
 
-.team-red{
+.team-red {
   border-left: 4px solid red;
 }
 
-.user-item:hover{
-  background-color: #F8F9FA !important;
-}
-
-.user-row {
-  border-radius: 0.5em 0 0 0.5em;
-  cursor: pointer
-}
-
-.user-row-selected{
-  border-left: 8px solid #0d6efd;
-
+.user-item {
+  border: none;
 }
 
 .user-name-lvl {
@@ -83,8 +162,25 @@
   font-weight: bold;
 }
 
+.user-row {
+  border-radius: 0.5em 0 0 0.5em;
+  cursor: pointer
+}
+
+.user-row-selected {
+  border-left: 8px solid #0d6efd;
+}
+
 .user-rank {
   font-size: small;
   font-weight: lighter;
   margin-bottom: 0px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbbcbd;
 }

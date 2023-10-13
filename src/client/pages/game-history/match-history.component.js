@@ -10,27 +10,23 @@ const MatchHistory = () => {
 
     const { globalState } = useContext(GlobalStateContext);
     const [historyData, isLoading, apiError] = useMatchHistory(globalState.selectedPuuid)
-    const isSelected = globalState.hasOwnProperty("selectedPuuid")
-    const historyLoaded = historyData.length > 0 && !isLoading && Object.keys(apiError).length === 0
-    
-    return (
-        isSelected ?
-            <ListGroup className='mt-2' as="ul">
-                {
-                    isLoading ?
-                        <ClassicSpinner />
-                        :
-                        historyLoaded ?
-                            historyData.map((game, index) =>
-                                <MatchItem game={game} key={globalState.selectedUserId + "-" + index} selectedUserId={globalState.selectedUserId} />
-                            )
-                            :
-                            <></>
-                }
-            </ListGroup >
-            :
-            <></>
 
+    const historyLoaded = historyData.length > 0 && !isLoading && Object.keys(apiError).length === 0
+
+    return (
+        <ListGroup className='mt-2' as="ul">
+            {
+                isLoading ?
+                    <ClassicSpinner />
+                    :
+                    historyLoaded ?
+                        historyData.map((game, index) =>
+                            <MatchItem game={game} key={globalState.selectedUserId + "-" + index} selectedUserId={globalState.selectedUserId} />
+                        )
+                        :
+                        <></>
+            }
+        </ListGroup >
     );
 
 }

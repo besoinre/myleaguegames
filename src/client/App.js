@@ -4,24 +4,35 @@ import { useState } from "react";
 import useRolesPlayrate from './hooks/useRolesPlayrate';
 
 const defaultGlobalState = {
-  refresh:false
+  refresh: false
 }
 
 const GlobalStateContext = createContext(null);
+const GlobalThemeContext = createContext();
 
 function App() {
 
   const [globalState, setGlobalState] = useState(defaultGlobalState)
+  const [darkMode, setDarkMode] = useState('light');
+
+  const toggleDarkMode = () => {
+    (darkMode === 'light' ?
+      setDarkMode('dark')
+      : setDarkMode('light'))
+  }
 
   useRolesPlayrate(globalState, setGlobalState)
-  
+
   return (
-    <GlobalStateContext.Provider value={{ globalState : globalState, setGlobalState: setGlobalState}}>
-      <div className='overflow-hidden'>
-        <Layout></Layout>
-      </div>
-    </GlobalStateContext.Provider>
+    <GlobalThemeContext.Provider
+      value={{ darkMode, toggleDarkMode }}>
+      <GlobalStateContext.Provider value={{ globalState: globalState, setGlobalState: setGlobalState }}>
+        <div className={'overflow-hidden theme-'+darkMode}>
+          <Layout></Layout>
+        </div>
+      </GlobalStateContext.Provider>
+    </GlobalThemeContext.Provider>
   );
 }
 
-export { App, GlobalStateContext };
+export { App, GlobalStateContext, GlobalThemeContext };

@@ -23,10 +23,10 @@ const MatchItem = ({ game, selectedUserId }) => {
         + String(new Date(game.info.gameEndTimestamp - game.info.gameStartTimestamp).getSeconds()).padStart(2, '0')
 
     return (
-        <ListGroup.Item className={(game.gameResult === "Win" ? 'bg-info-subtle' : 'bg-danger-subtle') + ' history-game-row m-1'}>
+        <ListGroup.Item className={(game.gameResult === "Win" ? 'game-won-bg' : 'game-lost-bg') + ' history-game-row m-2'}>
             <Row >
                 <Col md={"auto"}>
-                    <p className={(game.gameResult === "Win" ? 'text-primary' : 'text-danger') + ' fw-bold mb-0'}>
+                    <p className={(game.gameResult === "Win" ? 'game-won-text' : 'game-lost-text') + ' fw-bold mb-0'}>
                         {t(queuesJSON.filter((element) =>
                             element.queueId === parseInt(game.info.queueId)
                         )[0].description)}
@@ -59,7 +59,7 @@ const MatchItem = ({ game, selectedUserId }) => {
                                 </p>
                                 <p
                                     className={'mb-0 fw-semibold '
-                                        + (kda < 2 ? "text-dark-emphasis" : kda < 4 ? "text-success" : kda < 6 ? "text-primary" : "text-danger")}
+                                        + (kda < 2 ? "text-secondary" : kda < 4 ? "text-success" : kda < 6 ? "text-primary" : "text-danger")}
                                 >
                                     {kda}:1 KDA
                                 </p>
