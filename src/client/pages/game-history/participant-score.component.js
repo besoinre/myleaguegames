@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Image, ProgressBar } from 'react-bootstrap';
 import summonerSpells from '../../assets/summoner-spells.json'
 
-const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
+const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDuration, totalKills }) => {
 
     const kda = ((participant.kills + participant.assists) / participant.deaths) == "Infinity"
         ? "Perfect"
@@ -13,7 +13,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
 
     return (
         <Col md={12} key={participant.summonerName}>
-            <Row className='mb-1'>
+            <Row className='mb-2'>
                 <Col md={"auto p-0"}>
                     <Image
                         width={"50px"}
@@ -39,7 +39,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
                         alt={participant.summoner2Id}
                     />
                 </Col>
-                <Col md={"4 d-flex flex-column"}>
+                <Col md={"5"} className='d-flex flex-column '>
                     <span className='fw-semibold'>
                         {participant.summonerName}
                     </span>
@@ -49,7 +49,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
                                 if (participant[element] !== 0) {
                                     return (
                                         <Image
-                                            width={"20px"}
+                                            width={"25px"}
                                             src={"http://ddragon.leagueoflegends.com/cdn/13.20.1/img/item/" + participant[element] + ".png"}
                                             alt={"item" + participant[element]}
                                         />
@@ -61,12 +61,12 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
                 </Col>
                 <Col md={"3"}>
                     <Row>
-                        <Col md={"12"}>
+                        <Col md={"12"} >
                             <span>
-                                {participant.kills}/{participant.deaths}/{participant.assists}
+                                {participant.kills}/{participant.deaths}/{participant.assists} ({(((participant.kills + participant.assists) / totalKills)*100).toFixed(1)}%)
                             </span>
                         </Col>
-                        <Col md={"12"}>
+                        <Col md={"12"} >
                             {
                                 kda === "Perfect" ?
                                     <span className='fw-semibold text-danger'>{kda} KDA</span>
@@ -76,16 +76,30 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
                                             + (kda < 2 ? "text-secondary" : kda < 4 ? "text-success" : kda < 6 ? "text-primary" : "text-danger")}
                                     >{kda}:1 KDA</span>
                             }
-                                    
+
                         </Col>
                     </Row>
                 </Col>
-                <Col md={"3 d-flex flex-column justify-content-center"}>
-                    <ProgressBar variant="danger" max={maxDamageDealt} now={participant.totalDamageDealtToChampions} label={participant.totalDamageDealtToChampions} className='mb-1'/>
-                    <ProgressBar variant="secondary" max={maxDamageTaken} now={participant.totalDamageTaken} label={participant.totalDamageTaken}/>
+                <Col md={"2"}>
+                    <Row>
+                        <Col md={12}>
+                            {(participant.totalMinionsKilled + participant.neutralMinionsKilled)}cs
+                        </Col>
+                        <Col md={12}>
+                            {((participant.totalMinionsKilled + participant.neutralMinionsKilled) / (gameDuration / 60000)).toFixed(1)}/min
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
-        </Col>
+            <Row>
+                <Col md={"6"}>
+                    <ProgressBar className="mb-1 damage-bar" variant="danger" max={maxDamageDealt} now={participant.totalDamageDealtToChampions} label={participant.totalDamageDealtToChampions} />
+                </Col>
+                <Col md={"6"}>
+                    <ProgressBar className="damage-bar" variant="secondary" max={maxDamageTaken} now={participant.totalDamageTaken} label={participant.totalDamageTaken} />
+                </Col>
+            </Row >
+        </Col >
     );
 
 }

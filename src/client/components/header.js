@@ -23,7 +23,7 @@ const Header = () => {
                         MY LEAGUE GAMES
                     </span>
                 </>
-                <Button onClick={toggleDarkMode}>
+                <Button variant="outline-light" className="me-2"onClick={toggleDarkMode}>
                     {
                         (darkMode === 'light'
                             ? <BsSunFill />

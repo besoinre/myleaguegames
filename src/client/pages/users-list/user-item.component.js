@@ -44,7 +44,7 @@ const UserItem = ({ user, dispatchUsers }) => {
                                     <ListGroup.Item
                                         className={(userSelected ? 'user-row-selected' : '') + ' user-item'}
                                         as="li"
-                                        onClick={() => setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid })}
+                                        onClick={() => {setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid })}}
                                     >
                                         <Row>
                                             <Col md={"6"}>

@@ -13,7 +13,7 @@ const GlobalThemeContext = createContext();
 function App() {
 
   const [globalState, setGlobalState] = useState(defaultGlobalState)
-  const [darkMode, setDarkMode] = useState('light');
+  const [darkMode, setDarkMode] = useState('dark');
 
   const toggleDarkMode = () => {
     (darkMode === 'light' ?

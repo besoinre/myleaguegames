@@ -15,7 +15,7 @@ const ActiveGame = () => {
     const isInGame = Object.keys(gameData).length !== 0 && !isLoading
 
     return (
-        <Card className='m-2 active-game-container'>
+        <Card className='active-game-container w-100 mt-2'>
             <Card.Body>
                 <div className="d-flex justify-content-between align-items-start">
                     <div>
@@ -36,7 +36,7 @@ const ActiveGame = () => {
                             }
                         </Card.Subtitle>
                     </div>
-                    <Button
+                    <Button className='themed-button'
                         onClick={() => setGlobalState({ ...globalState, refresh: !globalState.refresh })}
                     >Refresh</Button>
                 </div>

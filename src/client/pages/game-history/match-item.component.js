@@ -130,8 +130,8 @@ const MatchItem = ({ game, selectedUserId }) => {
                         </Collapse>
                     </ListGroup.Item>
                 </Col>
-                <Col md={"1"} className='p-0'>
-                    <Button className='button-additional-data' onClick={() => toggleAdditionData(!showAdditionalData)}>
+                <Col md={"1"} className='ps-0'>
+                    <Button className='themed-button button-additional-data' onClick={() => toggleAdditionData(!showAdditionalData)}>
                         {showAdditionalData ? <BsArrowUp /> : <BsArrowDown />}
                     </Button>
                 </Col>

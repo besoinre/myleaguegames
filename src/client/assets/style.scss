@@ -14,8 +14,11 @@
   @include themify($themes) {
     background: themed('activeGameRowBackground');
     color: themed('activeGameRowText');
+    
   }
+  padding: 0.5rem 1rem
 }
+
 
 .active-game-row {
   height: 60px;
@@ -25,7 +28,11 @@
   width: 100%;
   height: 100%;
   border-radius: 0 0.5em 0.5em 0;
-  cursor: pointer
+  cursor: pointer;
+}
+
+.damage-bar {
+  color: black !important;
 }
 
 .delete-user {
@@ -86,9 +93,7 @@
   border: none;
 }
 
-.list-group-item {
-  background-color: unset
-}
+
 
 .main-container {
   @include themify($themes) {
@@ -113,6 +118,7 @@
   background-repeat: no-repeat;
   color: white
 }
+
 
 .search-result {
   height: 3em;
@@ -144,6 +150,37 @@
   border-left: 4px solid red;
 }
 
+
+.themed-button {
+  @include themify($themes) {
+    color: themed('matchButtonText');
+    background-color: themed('matchButtonBackground');
+    border-color: themed('matchButtonBackground');
+    --bs-btn-hover-color: themed('matchButtonText');
+    --bs-btn-hover-bg: themed('matchButtonBackgroundHover');
+    --bs-btn-hover-border-color: themed('matchButtonBackgroundHover');
+    --bs-btn-active-color: themed('matchButtonText');
+    --bs-btn-active-bg: themed('matchButtonBackgroundActive');
+    --bs-btn-active-border-color: themed('matchButtonBackgroundActive');
+  }
+}
+
+.themed-button:hover {
+  @include themify($themes) {
+    color: themed('matchButtonText');
+    background-color: themed('matchButtonBackgroundHover');
+    border-color: themed('matchButtonBackgroundHover');
+  }
+}
+
+.themed-button:active {
+  @include themify($themes) {
+    color: themed('matchButtonText');
+    background-color: themed('matchButtonBackgroundActive');
+    border-color: themed('matchButtonBackgroundActive');
+  }
+}
+
 .user-item {
   @include themify($themes) {
     background: themed('userBackground');
@@ -159,6 +196,76 @@
   }
 
   cursor: pointer;
+}
+
+.username-input {
+  border-radius: 0.375rem;
+  padding: 1em;
+  border: 1px solid #ffffff;
+  width: 100%;
+  @include themify($themes) {
+    background: themed('usernameInputActiveBackground');
+    color: themed('usernameInputActiveColor');
+    border-color: themed('usernameInputActiveBackground');
+    outline-color: themed('usernameInputActiveBackground');
+  }  
+}
+
+
+.username-input::placeholder {
+  @include themify($themes) {
+    background: themed('usernameInputActiveBackground');
+    color: themed('usernameInputDefaultColor');
+    border-color: themed('usernameInputActiveBackground');
+  }
+}
+
+.username-input:focus {
+  @include themify($themes) {
+    background: themed('usernameInputActiveBackground');
+    color: themed('usernameInputActiveColor');
+    border-color: themed('usernameInputActiveBackground');
+    outline: none;
+  }
+}
+
+.username-input:focus::placeholder {
+  @include themify($themes) {
+    background: themed('usernameInputActiveBackground');
+    color: themed('usernameInputActiveColor');
+  }
+}
+
+.username-loading{
+  @include themify($themes) {
+    background: themed('searchResultLoadingBackground');
+    color: themed('searchResultLoadingColor');
+  }
+}
+
+.username-found{
+    background: unset;
+    color: unset;
+    border: none;
+}
+
+.username-not-found{
+  @include themify($themes) {
+    background: themed('searchResultNotFoundBackground');
+    color: themed('searchResultNotFoundColor');
+  }
+}
+
+.username-result {
+  height: 50px;
+  width: 60%;
+  border-radius: 0.375rem;
+}
+
+
+.username-input::placeholder {
+  background-color: #115994;
+  color: #FFF
 }
 
 .user-name-lvl {
