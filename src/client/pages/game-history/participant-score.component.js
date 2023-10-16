@@ -1,8 +1,8 @@
 import React from 'react';
-import { Row, Col, Image } from 'react-bootstrap';
+import { Row, Col, Image, ProgressBar } from 'react-bootstrap';
 import summonerSpells from '../../assets/summoner-spells.json'
 
-const ParticipantScore = ({ participant }) => {
+const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken }) => {
 
     const kda = ((participant.kills + participant.assists) / participant.deaths) == "Infinity"
         ? "Perfect"
@@ -79,6 +79,10 @@ const ParticipantScore = ({ participant }) => {
                                     
                         </Col>
                     </Row>
+                </Col>
+                <Col md={"3 d-flex flex-column justify-content-center"}>
+                    <ProgressBar variant="danger" max={maxDamageDealt} now={participant.totalDamageDealtToChampions} label={participant.totalDamageDealtToChampions} className='mb-1'/>
+                    <ProgressBar variant="secondary" max={maxDamageTaken} now={participant.totalDamageTaken} label={participant.totalDamageTaken}/>
                 </Col>
             </Row>
         </Col>

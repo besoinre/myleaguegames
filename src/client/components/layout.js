@@ -20,11 +20,11 @@ const Layout = () => {
             {
                 isSelected ?
                     <div className='main-container'>
-                        <Row>
+                        <Row className='w-100 justify-content-center'>
                             <Col md={12}>
                                 <ActiveGame />
                             </Col>
-                            <Col md={12}>
+                            <Col md={10}>
                                 <MatchHistory />
                             </Col>
                         </Row>
