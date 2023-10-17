@@ -4,8 +4,6 @@ import summonerSpells from '../../assets/summoner-spells.json'
 
 const ActiveGameTeam = ({ team, leftTeam }) => {
 
-    const rolesOrder = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"]
-
     return (
         <ListGroup horizontal>
             <Container>

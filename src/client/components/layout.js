@@ -16,25 +16,31 @@ const Layout = () => {
     return (
         <>
             <Header />
-            <UsersList />
-            {
-                isSelected ?
-                    <div className='main-container'>
-                        <Row className='w-100 justify-content-center'>
-                            <Col md={10}>
-                                <ActiveGame />
-                            </Col>
-                            <Col md={10}>
-                                <MatchHistory />
-                            </Col>
-                        </Row>
-                    </div>
-                    :
-                    <NoUserSelected />
-            }
+            <div className='container-background'>
+                <div className='container-padding'>
+                    <Row>
+                        <Col md={4}>
+                            <UsersList />
+                        </Col>
+                        <Col md={8}>
+                            {
+                                isSelected ?
+                                    <Row>
+                                        <Col md={12}>
+                                            <ActiveGame />
+                                        </Col>
+                                        <Col md={12}>
+                                            <MatchHistory />
+                                        </Col>
+                                    </Row>
+                                    :
+                                    <NoUserSelected />
+                            }
+                        </Col>
+                    </Row>
+                </div>
+            </div>
         </>
-
-
     )
 }
 

@@ -110,7 +110,7 @@ const MatchItem = ({ game, selectedUserId }) => {
                                                 if (participant[element] !== 0) {
                                                     return (
                                                         <Image
-                                                            width={"60px"}
+                                                            width={"40px"}
                                                             src={"http://ddragon.leagueoflegends.com/cdn/13.20.1/img/item/" + participant[element] + ".png"}
                                                             alt={"item" + participant[element]}
                                                         />

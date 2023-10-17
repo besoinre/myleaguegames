@@ -3,9 +3,8 @@ $themes: (
   light: (
     headerBackground: #5383E8,
     headerText: #eee,
-    sidebarBackground: #ddd,
     userBackground: #fff,
-    userBackgroundHover: #ededed,
+    userBackgroundHover: #cfcfcf,
     userText: #000,
     activeGameBackground: #fff,
     activeGameText: #000,
@@ -30,16 +29,16 @@ $themes: (
     searchResultLoadingColor: #FFF,
     searchResultLoadingBackground: #79D0A7,
     searchResultNotFoundColor: #FFF,
-    searchResultNotFoundBackground: #ffd7dd
+    searchResultNotFoundBackground: #ffd7dd,
+    noDataColor: #000
   ),
   dark: (
     headerBackground: #093459,
     headerText: #e2e3e5,
-    sidebarBackground: #092A46,
     userBackground: #081F33,
-    userBackgroundHover: #051421,
+    userBackgroundHover: #0b2c4a,
     userText: #fff,
-    activeGameBackground: #081F33,
+    activeGameBackground: #0b2a45,
     activeGameText: #fff,
     activeGameRowBackground: #081F33,
     activeGameRowText: #fff,
@@ -60,7 +59,8 @@ $themes: (
     searchResultLoadingColor: #FFF,
     searchResultLoadingBackground: #42688a,
     searchResultNotFoundColor: #FFF,
-    searchResultNotFoundBackground: #59343b
+    searchResultNotFoundBackground: #59343b,
+    noDataColor: #e2e3e5
   ),
 );
 

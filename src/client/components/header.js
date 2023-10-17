@@ -10,8 +10,8 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="ml-2 header d-flex justify-content-between align-items-center">
-                <>
+            <Navbar className="header">
+                <div className='d-flex justify-content-between align-items-center w-100'>
                     <img
                         alt="teemo icon"
                         src="../teemo.png"
@@ -22,16 +22,16 @@ const Header = () => {
                     <span id='header-title'>
                         MY LEAGUE GAMES
                     </span>
-                </>
-                <Button variant="outline-light" className="me-2"onClick={toggleDarkMode}>
-                    {
-                        (darkMode === 'light'
-                            ? <BsSunFill />
-                            : <BsMoonFill />
+                    <Button variant="outline-light" className="me-2" onClick={toggleDarkMode}>
+                        {
+                            (darkMode === 'light'
+                                ? <BsSunFill />
+                                : <BsMoonFill />
 
-                        )
-                    }
-                </Button>
+                            )
+                        }
+                    </Button>
+                </div>
             </Navbar>
         </>
     );

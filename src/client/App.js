@@ -27,8 +27,8 @@ function App() {
     <GlobalThemeContext.Provider
       value={{ darkMode, toggleDarkMode }}>
       <GlobalStateContext.Provider value={{ globalState: globalState, setGlobalState: setGlobalState }}>
-        <div className={'overflow-hidden theme-'+darkMode}>
-          <Layout></Layout>
+        <div className={'theme-'+darkMode}>
+          <Layout />
         </div>
       </GlobalStateContext.Provider>
     </GlobalThemeContext.Provider>

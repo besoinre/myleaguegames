@@ -12,18 +12,18 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
 
 
     return (
-        <Col md={12} key={participant.summonerName}>
+        <Col md={12} key={participant.summonerName} className='participant-item'>
             <Row className='mb-2'>
                 <Col md={"auto p-0"}>
                     <Image
-                        width={"50px"}
+                        width={"40px"}
                         src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/champion/" + participant.championName + ".png"}
                         alt={participant.championName}
                     />
                 </Col>
                 <Col md={"auto d-flex flex-column p-0"}>
                     <Image
-                        width={"25px"}
+                        width={"20px"}
                         src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
                             Object.entries(summonerSpells.data).filter((element) =>
                                 element[1].key == participant.summoner1Id
@@ -31,7 +31,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                         alt={participant.summoner1Id}
                     />
                     <Image
-                        width={"25px"}
+                        width={"20px"}
                         src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
                             Object.entries(summonerSpells.data).filter((element) =>
                                 element[1].key == participant.summoner2Id
@@ -39,7 +39,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                         alt={participant.summoner2Id}
                     />
                 </Col>
-                <Col md={"5"} className='d-flex flex-column '>
+                <Col md={"5"} className='d-flex flex-column ps-1'>
                     <span className='fw-semibold'>
                         {participant.summonerName}
                     </span>
@@ -49,7 +49,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                                 if (participant[element] !== 0) {
                                     return (
                                         <Image
-                                            width={"25px"}
+                                            width={"20px"}
                                             src={"http://ddragon.leagueoflegends.com/cdn/13.20.1/img/item/" + participant[element] + ".png"}
                                             alt={"item" + participant[element]}
                                         />
@@ -63,7 +63,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                     <Row>
                         <Col md={"12"} >
                             <span>
-                                {participant.kills}/{participant.deaths}/{participant.assists} ({(((participant.kills + participant.assists) / totalKills)*100).toFixed(1)}%)
+                                {participant.kills}/{participant.deaths}/{participant.assists} ({(((participant.kills + participant.assists) / totalKills) * 100).toFixed(1)}%)
                             </span>
                         </Col>
                         <Col md={"12"} >
