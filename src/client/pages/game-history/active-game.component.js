@@ -6,11 +6,12 @@ import { GlobalStateContext } from '../../App'
 import queuesJSON from '../../assets/queues.json'
 import ClassicSpinner from '../../components/spinner';
 import ActiveGameTeam from './active-game-team.component';
+import { useTranslation } from 'react-i18next';
 
 const ActiveGame = () => {
 
     const { globalState, setGlobalState } = useContext(GlobalStateContext);
-
+    const { t } = useTranslation();
     let [gameData, isLoading] = useActiveGame(globalState.selectedUserId)
     const isInGame = Object.keys(gameData).length !== 0 && !isLoading
 
@@ -36,6 +37,13 @@ const ActiveGame = () => {
                             }
                         </Card.Subtitle>
                     </div>
+                    {
+                        isInGame &&
+                        <div>
+                            <span className='user-rank-details'> {t(gameData.rank + " " + gameData.tier)} {gameData.lp}</span><span className='user-lp-annotation'>LP</span>
+                        </div>
+
+                    }
                     <Button className='themed-button'
                         onClick={() => setGlobalState({ ...globalState, refresh: !globalState.refresh })}
                     >Refresh</Button>

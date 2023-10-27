@@ -25,39 +25,37 @@ const AdditionalMatchData = ({ game }) => {
 
     return (
         <Row>
-            <Col md={6}>
-                <Row>
-                    {
-                        game.info.participants.filter((element) => element.teamId === 100).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
-                            .map((participant) => (
-                                <ParticipantScore
-                                    key={participant.summonerName}
-                                    participant={participant}
-                                    maxDamageDealt={maxDamageDealt}
-                                    maxDamageTaken={maxDamageTaken}
-                                    gameDuration={gameDuration}
-                                    totalKills={totalKills100}
-                                />
-                            ))
-                    }
-                </Row>
+            <Col md={12} className='mb-3'>
+                {
+                    game.info.participants.filter((element) => element.teamId === 100).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
+                        .map((participant) => (
+                            <ParticipantScore
+                                key={participant.summonerName}
+                                participant={participant}
+                                maxDamageDealt={maxDamageDealt}
+                                maxDamageTaken={maxDamageTaken}
+                                gameDuration={gameDuration}
+                                totalKills={totalKills100}
+                            />
+                        ))
+                }
+
             </Col>
-            <Col md={6}>
-                <Row>
-                    {
-                        game.info.participants.filter((element) => element.teamId === 200).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
-                            .map((participant) => (
-                                <ParticipantScore
-                                    key={participant.summonerName}
-                                    participant={participant}
-                                    maxDamageDealt={maxDamageDealt}
-                                    maxDamageTaken={maxDamageTaken}
-                                    gameDuration={gameDuration}
-                                    totalKills={totalKills200}
-                                />
-                            ))
-                    }
-                </Row>
+            <hr />
+            <Col md={12}>
+                {
+                    game.info.participants.filter((element) => element.teamId === 200).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
+                        .map((participant) => (
+                            <ParticipantScore
+                                key={participant.summonerName}
+                                participant={participant}
+                                maxDamageDealt={maxDamageDealt}
+                                maxDamageTaken={maxDamageTaken}
+                                gameDuration={gameDuration}
+                                totalKills={totalKills200}
+                            />
+                        ))
+                }
             </Col>
         </Row>
     )

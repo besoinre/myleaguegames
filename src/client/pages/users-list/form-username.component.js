@@ -23,7 +23,7 @@ const FormUserName = ({ dispatchUsers }) => {
 
     return (
         <>
-            <Form onSubmit={addUserName}>
+            <Form onSubmit={addUserName} className="mt-2">
 
                 <input
                     type="text" placeholder="Enter Username"

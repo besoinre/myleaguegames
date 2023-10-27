@@ -1,11 +1,11 @@
 import React from 'react';
-import { ListGroup, Button, Form, Row, Col, Image } from 'react-bootstrap';
+import { ListGroup, Button, Form, Row, Col } from 'react-bootstrap';
 import useUsernamesInformation from '../../hooks/useUsernamesInformation'
 import ClassicSpinner from '../../components/spinner'
 import { useTranslation } from 'react-i18next';
 import { GlobalStateContext } from '../../App';
 import { useContext } from 'react';
-import {BsFillTrashFill} from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 
 const UserItem = ({ user, dispatchUsers }) => {
 
@@ -44,28 +44,29 @@ const UserItem = ({ user, dispatchUsers }) => {
                                     <ListGroup.Item
                                         className={(userSelected ? 'user-row-selected' : '') + ' user-item'}
                                         as="li"
-                                        onClick={() => {setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid })}}
+                                        onClick={() => { setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid }) }}
                                     >
                                         <Row>
-                                            <Col md={"6"}>
-                                                <p className='user-name-lvl'>{userData.summonerData.name} lv. {userData.summonerData.summonerLevel}</p>
-                                                {userData.rankingData.map(element => {
-                                                    return (
-                                                        <div key={element.queueType}>
-                                                            <p className='user-rank'> {t(element.queueType)} : {element.tier} {element.rank} {element.leaguePoints}LP</p>
-                                                            <p className='user-rank'> {element.wins}W / {element.losses}L ({Math.round(element.wins / (element.wins + element.losses) * 100)}% Winrate)</p>
-                                                        </div>
-                                                    )
-                                                })}
-                                            </Col>
                                             <Col md={4}>
+                                                <span className='user-name-lvl'>{userData.summonerData.name}</span>
+                                            </Col>
+                                            <Col md={8}>
                                                 {userData.rankingData.map(element => {
                                                     if (t(element.queueType) === "SoloQ")
                                                         return (
-                                                            <Image
-                                                                width="100%"
-                                                                src={"../old-ranks/emblem-" + element.tier + ".png"} key={element.tier} />
+                                                            <Row key={element.queueType}>
+                                                                <Col md={5}>
+                                                                    <span className='user-rank-title'> {t(element.tier + " " + element.rank)}</span><br />
+                                                                    <span className='user-rank-details'>{element.leaguePoints}</span><span className='user-lp-annotation'>LP</span>
+                                                                </Col>
+                                                                <Col md={7}>
+                                                                    <span className='user-rank-title'>Win Rate</span><br />
+                                                                    <span className='user-rank-details'>{Math.round(element.wins / (element.wins + element.losses) * 100)}%</span><br />
+                                                                    <span className='user-rank-sub'>{element.wins}W / {element.losses}L</span>
+                                                                </Col>
+                                                            </Row>
                                                         )
+                                                    return <></>
                                                 })}
                                             </Col>
                                         </Row>
@@ -73,7 +74,7 @@ const UserItem = ({ user, dispatchUsers }) => {
                                     </ListGroup.Item >
                                 </Col>
                                 <Col md={2} className='ps-0'>
-                                    <Button variant="danger" type="submit" className={'delete-user'}><BsFillTrashFill/></Button>
+                                    <Button variant="danger" type="submit" className={'delete-user'}><BsFillTrashFill /></Button>
                                 </Col>
                             </Row >
                         </Form>

@@ -4,13 +4,12 @@ import { ListGroup } from 'react-bootstrap';
 import { GlobalStateContext } from '../../App'
 import useMatchHistory from '../../hooks/useMatchHistory';
 import ClassicSpinner from '../../components/spinner';
-import MatchItem from './match-item.component';
+import SessionMatches from './session-matches.component';
 
 const MatchHistory = () => {
 
     const { globalState } = useContext(GlobalStateContext);
-    const [historyData, isLoading, apiError] = useMatchHistory(globalState.selectedPuuid)
-
+    const [historyData, isLoading, apiError] = useMatchHistory(globalState.selectedPuuid, globalState.selectedUserId)
     const historyLoaded = historyData.length > 0 && !isLoading && Object.keys(apiError).length === 0
 
     return (
@@ -20,9 +19,20 @@ const MatchHistory = () => {
                     <ClassicSpinner />
                     :
                     historyLoaded ?
-                        historyData.map((game, index) =>
-                            <MatchItem game={game} key={globalState.selectedUserId + "-" + index} selectedUserId={globalState.selectedUserId} />
-                        )
+                        historyData.map((session) => (
+                            <SessionMatches
+                                date={session.date}
+                                games={session.games}
+                                wins={session.wins}
+                                loses={session.loses}
+                                totalKills={session.totalKills}
+                                totalAssists={session.totalAssists}
+                                totalDeaths={session.totalDeaths}
+                                totalCS={session.totalCS}
+                                totalTimePlayed={session.totalTimePlayed}
+                                selectedUserId={globalState.selectedUserId}
+                            />
+                        ))
                         :
                         <></>
             }

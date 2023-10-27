@@ -12,7 +12,7 @@ const UsersList = () => {
     <>
       <Container className='sidebar'>
         <Row>
-          <Col md={12} className='my-2'>
+          <Col md={12}>
             <FormUserName dispatchUsers={dispatchUsers} />
           </Col>
           <Col md={12}>

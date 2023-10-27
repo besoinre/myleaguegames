@@ -3,5 +3,8 @@
     "RANKED_FLEX_SR" : "FlexQ",
     "5v5 Ranked Solo games": "SoloQ",
     "5v5 ARAM games": "ARAM",
-    "5v5 Ranked Flex games": "FlexQ"
+    "5v5 Ranked Flex games": "FlexQ",
+    "MASTER I": "Master",
+    "GRANDMASTER I": "Grandmaster",
+    "CHALLENGER I": "Challenger"
 }

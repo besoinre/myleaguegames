@@ -30,7 +30,10 @@ $themes: (
     searchResultLoadingBackground: #79D0A7,
     searchResultNotFoundColor: #FFF,
     searchResultNotFoundBackground: #ffd7dd,
-    noDataColor: #000
+    noDataColor: #000,
+    sessionColor: #000,
+    winColor: #5EEA93,
+    loseColor: #EF4C62
   ),
   dark: (
     headerBackground: #093459,
@@ -60,7 +63,10 @@ $themes: (
     searchResultLoadingBackground: #42688a,
     searchResultNotFoundColor: #FFF,
     searchResultNotFoundBackground: #59343b,
-    noDataColor: #e2e3e5
+    noDataColor: #e2e3e5,
+    sessionColor: #fff,
+    winColor: #5EEA93,
+    loseColor: #EF4C62
   ),
 );
 

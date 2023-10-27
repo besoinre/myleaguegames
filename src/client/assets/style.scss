@@ -1,11 +1,16 @@
 @import '~bootstrap/scss/bootstrap';
 @import 'theme.scss';
 
+* {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol
+}
+
 .active-game-container {
   @include themify($themes) {
     background: themed('activeGameBackground');
     color: themed('activeGameText');
   }
+
   border: none
 }
 
@@ -13,8 +18,9 @@
   @include themify($themes) {
     background: themed('activeGameRowBackground');
     color: themed('activeGameRowText');
-    
+
   }
+
   padding: 0.5rem 1rem
 }
 
@@ -29,14 +35,14 @@
   cursor: pointer;
 }
 
-.container-background{
+.container-background {
   @include themify($themes) {
     background: themed('mainContainerBackground');
   }
 }
 
-.container-padding{
-  width: 100%;
+.container-padding {
+
   max-width: 1500px;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -44,9 +50,6 @@
   margin-left: auto;
 }
 
-.damage-bar {
-  color: black !important;
-}
 
 .delete-user {
   height: 100%;
@@ -55,9 +58,9 @@
   border-radius: 0 0.5em 0.5em 0;
 }
 
-.empty-item{
-  width: 20px;
-  height: 20px;
+.empty-item {
+  display: inline-block;
+  background-color: transparent;
 }
 
 .game-lost-bg {
@@ -94,7 +97,8 @@
     background: themed('headerBackground');
     color: themed('headerText')
   }
-  position: -webkit-sticky; 
+
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -109,19 +113,78 @@
   border: none;
 }
 
-.no-user-selected{
+.no-user-selected {
   @include themify($themes) {
     color: themed('noDataColor');
   }
 }
 
-.participant-item{
-  font-size: 0.8em
+.participant-damage-dealt {
+  font-size: 1em;
+  color: #DA3A45
+}
+
+.participant-damage-taken {
+  font-size: 1em;
+  color: #7f7f7f
+}
+
+.participant-damage-bar {
+  border-radius: 0rem;
+  height: 10px;
+}
+
+.participant-item {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dedede;
+  margin-right: 2px
+}
+
+.participant-score-row {
+  font-size: 0.8em;
+  margin-bottom: 0.5em;
+}
+
+.participant-summoner-name {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.participant-summoner-level {
+  font-weight: lighter;
+  font-size: 1em;
+}
+
+.rank-emblem {
+  transform: scale(2);
 }
 
 .search-result {
   height: 3em;
   cursor: pointer;
+}
+
+.session-average{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.session-date{
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.session-header{
+  @include themify($themes) {
+    color: themed('sessionColor');
+  }
+  padding: 5px;
+}
+
+.session-result {
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 .sidebar {
@@ -132,7 +195,7 @@
   z-index: 1;
 }
 
-.spinner{
+.spinner {
   @include themify($themes) {
     color: themed('noDataColor');
   }
@@ -181,6 +244,7 @@
     background: themed('userBackground');
     color: themed('userText');
   }
+
   border: none;
 }
 
@@ -188,6 +252,7 @@
   @include themify($themes) {
     background: themed('userBackgroundHover');
   }
+
   cursor: pointer;
 }
 
@@ -196,12 +261,13 @@
   padding: 1em;
   border: 1px solid #ffffff;
   width: 100%;
+
   @include themify($themes) {
     background: themed('usernameInputActiveBackground');
     color: themed('usernameInputActiveColor');
     border-color: themed('usernameInputActiveBackground');
     outline-color: themed('usernameInputActiveBackground');
-  }  
+  }
 }
 
 .username-input::placeholder {
@@ -228,20 +294,20 @@
   }
 }
 
-.username-loading{
+.username-loading {
   @include themify($themes) {
     background: themed('searchResultLoadingBackground');
     color: themed('searchResultLoadingColor');
   }
 }
 
-.username-found{
-    background: unset;
-    color: unset;
-    border: none;
+.username-found {
+  background: unset;
+  color: unset;
+  border: none;
 }
 
-.username-not-found{
+.username-not-found {
   @include themify($themes) {
     background: themed('searchResultNotFoundBackground');
     color: themed('searchResultNotFoundColor');
@@ -273,10 +339,32 @@
   border-left: 8px solid #0d6efd;
 }
 
-.user-rank {
+.user-lp-annotation {
+  font-size: 1.15rem;
+  padding-left: 0.35rem;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+  font-weight: 700;
+}
+
+.user-rank-details {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.user-rank-sub {
+  font-size: 0.8rem;
+}
+
+.user-rank-title {
+  font-size: 1rem;
+}
+
+.user-winrate {
   font-size: small;
   font-weight: lighter;
-  margin-bottom: 0px;
 }
 
 ::-webkit-scrollbar {
