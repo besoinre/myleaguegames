@@ -1,18 +1,32 @@
 import React from 'react';
 import { Button, Form, Card, Row, Col } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import useUsernameExistence from '../../hooks/useUsernameExistence';
 import { BsPersonPlusFill } from "react-icons/bs";
+import { GlobalStateContext } from '../../App';
+import { ACTIONS } from '../../hooks/useGlobalState'
 
-const FormUserName = ({ dispatchUsers }) => {
+const FormUserName = () => {
 
     const [newUserName, setNewUserName] = useState("");
     const [userData, isLoading, apiError] = useUsernameExistence(newUserName)
+    const { dispatchState } = useContext(GlobalStateContext);
 
     let addUserName = (e) => {
         e.preventDefault();
         if (Object.keys(apiError).length === 0 && !isLoading) {
-            dispatchUsers({ type: "ADD", userName: newUserName })
+            dispatchState(
+                [
+                    { type: ACTIONS.ADD_USER, userName: newUserName },
+                    {
+                        type: ACTIONS.DEFAULT_UPDATE, updateObject: {
+                            selectedUserId: userData.id,
+                            selectedUserName: userData.name,
+                            selectedPuuid: userData.puuid
+                        }
+                    }
+                ]
+            )
             setNewUserName("")
         }
     }
@@ -68,4 +82,4 @@ const FormUserName = ({ dispatchUsers }) => {
     );
 }
 
-export default (FormUserName);
+export default FormUserName;

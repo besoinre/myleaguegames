@@ -31,8 +31,24 @@
 .button-additional-data {
   width: 100%;
   height: 100%;
-  border-radius: 0 0.5em 0.5em 0;
+  border-radius: 0;
   cursor: pointer;
+}
+
+.button-username {
+  background: none;
+  border: none;
+  color: #0074d9;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.button-username:hover {
+  text-decoration: none;
+  background: none;
+
 }
 
 .container-background {
@@ -51,6 +67,16 @@
 }
 
 
+.daily-session-header {
+  @include themify($themes) {
+    background: linear-gradient(90deg, themed('dailySessionBackgroundStart'), themed('dailySessionBackgroundEnd'));
+    color: themed('sessionColor')
+  }
+
+  padding: 5px;
+}
+
+
 .delete-user {
   height: 100%;
   width: 100%;
@@ -61,6 +87,16 @@
 .empty-item {
   display: inline-block;
   background-color: transparent;
+}
+
+.full-session-header {
+  @include themify($themes) {
+    background: themed('fullSessionBackground');
+    color: themed('sessionColor')
+  }
+
+  border-radius: 5px 5px 0 0;
+  padding: 10px;
 }
 
 .game-lost-bg {
@@ -94,7 +130,7 @@
 
 .header {
   @include themify($themes) {
-    background: themed('headerBackground');
+    background: linear-gradient(90deg, themed('headerBackgroundStart'), themed('headerBackgroundEnd'));
     color: themed('headerText')
   }
 
@@ -109,7 +145,8 @@
   @include themify($themes) {
     color: themed('gameRowText');
   }
-  border-radius: 0.5em 0 0 0.5em !important;
+
+  border-radius: 0 !important;
   border: none;
 }
 
@@ -165,22 +202,17 @@
   cursor: pointer;
 }
 
-.session-average{
+.session-average {
   font-size: 1.2rem;
   font-weight: 500;
 }
 
-.session-date{
+.session-date {
   font-size: 1.2rem;
   font-weight: 400;
 }
 
-.session-header{
-  @include themify($themes) {
-    color: themed('sessionColor');
-  }
-  padding: 5px;
-}
+
 
 .session-result {
   font-size: 1.4rem;
@@ -325,9 +357,10 @@
   color: #FFF
 }
 
-.user-name-lvl {
+.user-name {
   font-size: medium;
   font-weight: bold;
+  word-wrap: break-word;
 }
 
 .user-row {
@@ -372,5 +405,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #bbbcbd;
+  background: #565758;
 }

@@ -1,7 +1,8 @@
 
 $themes: (
   light: (
-    headerBackground: #5383E8,
+    headerBackgroundStart: #5383E8,
+    headerBackgroundEnd: #4066b7,
     headerText: #eee,
     userBackground: #fff,
     userBackgroundHover: #cfcfcf,
@@ -33,10 +34,14 @@ $themes: (
     noDataColor: #000,
     sessionColor: #000,
     winColor: #5EEA93,
-    loseColor: #EF4C62
+    loseColor: #EF4C62,
+    fullSessionBackground: #FFF,
+    dailySessionBackgroundStart: #ebebeb,
+    dailySessionBackgroundEnd: #f9f8f8
   ),
   dark: (
-    headerBackground: #093459,
+    headerBackgroundStart: #093459,
+    headerBackgroundEnd: #0e497d,
     headerText: #e2e3e5,
     userBackground: #081F33,
     userBackgroundHover: #0b2c4a,
@@ -66,7 +71,10 @@ $themes: (
     noDataColor: #e2e3e5,
     sessionColor: #fff,
     winColor: #5EEA93,
-    loseColor: #EF4C62
+    loseColor: #EF4C62,
+    fullSessionBackground: #082238,
+    dailySessionBackgroundStart: #0A2740,
+    dailySessionBackgroundEnd: #093358
   ),
 );
 

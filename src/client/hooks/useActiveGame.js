@@ -19,7 +19,7 @@ export default function useActiveGame(encryptedSummonerId) {
     const [isLoading, setIsLoading] = useState(true)
     const [apiError, setApiError] = useState({})
 
-    const { globalState } = useContext(GlobalStateContext);
+    const { state } = useContext(GlobalStateContext);
     const rankLP = {
         "IRON": 0,
         "BRONZE": 400,
@@ -40,7 +40,7 @@ export default function useActiveGame(encryptedSummonerId) {
         "IV": 0
     }
 
-    let patch = globalState.patch
+    let patch = state.patch
     useEffect(() => {
         if (typeof encryptedSummonerId !== "undefined") {
             setIsLoading(true)
@@ -127,7 +127,7 @@ export default function useActiveGame(encryptedSummonerId) {
                     setIsLoading(false)
                 });
         }
-    }, [encryptedSummonerId, globalState.refresh]);
+    }, [encryptedSummonerId, state.refresh]);
 
     return [gameData, isLoading, apiError]
 }

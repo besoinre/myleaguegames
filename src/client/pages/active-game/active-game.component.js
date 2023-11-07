@@ -4,15 +4,16 @@ import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import useActiveGame from '../../hooks/useActiveGame';
 import { GlobalStateContext } from '../../App'
 import queuesJSON from '../../assets/queues.json'
-import ClassicSpinner from '../../components/spinner';
-import ActiveGameTeam from './active-game-team.component';
+import ClassicSpinner from '../globals/spinner';
+import ActiveGameTeam from '../active-game/active-game-team.component';
 import { useTranslation } from 'react-i18next';
+import { ACTIONS } from '../../hooks/useGlobalState';
 
 const ActiveGame = () => {
 
-    const { globalState, setGlobalState } = useContext(GlobalStateContext);
+    const { state, dispatchState } = useContext(GlobalStateContext);
     const { t } = useTranslation();
-    let [gameData, isLoading] = useActiveGame(globalState.selectedUserId)
+    let [gameData, isLoading] = useActiveGame(state.selectedUserId)
     const isInGame = Object.keys(gameData).length !== 0 && !isLoading
 
     return (
@@ -21,7 +22,7 @@ const ActiveGame = () => {
                 <div className="d-flex justify-content-between align-items-start">
                     <div>
                         <Card.Title>
-                            <strong>{globalState.selectedUserName}</strong> Active Game
+                            <strong>{state.selectedUserName}</strong> Active Game
                         </Card.Title>
                         <Card.Subtitle className="mb-2">
                             {
@@ -40,12 +41,24 @@ const ActiveGame = () => {
                     {
                         isInGame &&
                         <div>
-                            <span className='user-rank-details'> {t(gameData.rank + " " + gameData.tier)} {gameData.lp}</span><span className='user-lp-annotation'>LP</span>
+                            <span className='user-rank-details'>
+                                {t(gameData.rank + " " + gameData.tier)} {gameData.lp}
+                            </span>
+                            <span className='user-lp-annotation'>
+                                LP
+                            </span>
                         </div>
 
                     }
                     <Button className='themed-button'
-                        onClick={() => setGlobalState({ ...globalState, refresh: !globalState.refresh })}
+                        onClick={
+                            () => dispatchState(
+                                [{
+                                    type: ACTIONS.DEFAULT_UPDATE,
+                                    updateObject: { refresh: !state.refresh }
+                                }]
+                            )
+                        }
                     >Refresh</Button>
                 </div>
                 {
@@ -68,4 +81,4 @@ const ActiveGame = () => {
     )
 }
 
-export default (ActiveGame);
+export default ActiveGame;

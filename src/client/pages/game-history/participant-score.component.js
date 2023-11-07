@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row, Col, Image, ProgressBar } from 'react-bootstrap';
 import summonerSpells from '../../assets/summoner-spells.json'
-import TooltipDescription from '../../components/tooltip'
+import TooltipDescription from '../globals/tooltip'
 import runesReforged from '../../assets/runesReforged.json'
 import { BsFillStopFill } from 'react-icons/bs';
-import Kda from './kda.component';
+import Kda from '../globals/kda';
+import Username from '../globals/username';
 
 const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDuration, totalKills }) => {
 
@@ -30,8 +31,8 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                         {
                             summonerSpellsData.filter((element) =>
                                 Number(element["key"]) === participant.summoner1Id
-                            ).map((element) => (
-                                <TooltipDescription title={element.name}>
+                            ).map((element, index) => (
+                                <TooltipDescription title={element.name} key={"tooltip-"+index+"-"+element.id}>
                                     <Image
                                         width={"25px"}
                                         src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
@@ -44,8 +45,8 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                         {
                             summonerSpellsData.filter((element) =>
                                 Number(element["key"]) === participant.summoner2Id
-                            ).map((element) => (
-                                <TooltipDescription title={element.name}>
+                            ).map((element, index) => (
+                                <TooltipDescription title={element.name} key={"tooltip-"+index+"-"+element.id}>
                                     <Image
                                         width={"25px"}
                                         src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
@@ -63,8 +64,8 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                             ).map((runesSubList) =>
                                 runesSubList["slots"][0]["runes"].filter((element) =>
                                     element["id"] == participant["perks"]["styles"][0]["selections"][0]["perk"]
-                                ).map((rune) => (
-                                    <TooltipDescription title={rune["name"]}>
+                                ).map((rune, index) => (
+                                    <TooltipDescription title={rune["name"]} key={"tooltip-"+index+"-"+rune["key"]}>
                                         <Image
                                             width={"25px"}
                                             src={runesImageLink + rune["icon"].toLowerCase()}
@@ -77,8 +78,8 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                         {
                             runesReforged.filter((element) =>
                                 element["id"] == participant["perks"]["styles"][0]["style"]
-                            ).map((element) => (
-                                <TooltipDescription title={element["name"]}>
+                            ).map((element, index) => (
+                                <TooltipDescription title={element["name"]} key={"tooltip-"+index+"-"+element["key"]}>
                                     <Image
                                         width={"25px"}
                                         src={runesImageLink + element["icon"].toLowerCase()}
@@ -92,7 +93,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
             </Col>
             <Col md={"2"} className='d-flex flex-column'>
                 <span className='participant-summoner-name'>
-                    {participant.summonerName}
+                    <Username name={participant.summonerName} id={participant.summonerId} puuid={participant.puuid}/>
                 </span>
                 <span className='participant-summoner-level'>
                     Level {participant.summonerLevel}
@@ -141,9 +142,10 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                 {
                     itemKeys.filter((element) => (
                         participant[element] !== 0
-                    )).map((element) =>
+                    )).map((element, index) =>
                     (
                         <Image
+                            key={"tooltip-"+index+"-"+participant[element]}
                             className='participant-item'
                             width={"25px"}
                             src={"http://ddragon.leagueoflegends.com/cdn/13.20.1/img/item/" + participant[element] + ".png"}
@@ -155,8 +157,8 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                 {
                     itemKeys.filter((element) => (
                         participant[element] === 0
-                    )).map((element) =>
-                        <BsFillStopFill className='empty-item participant-item' />
+                    )).map((element, index) =>
+                        <BsFillStopFill className='empty-item participant-item' key={"emptyItem-"+index}/>
                     )
                 }
                 <Image

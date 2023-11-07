@@ -1,26 +1,27 @@
 import React from 'react';
 import { Col, Row, Container, ListGroup } from 'react-bootstrap';
 import FormUserName from './form-username.component';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import UserItem from './user-item.component';
+import { useContext } from 'react';
+import { GlobalStateContext } from '../../App'
 
 const UsersList = () => {
 
-  const [users, dispatchUsers] = useLocalStorage("users", { names: [] });
+  const { state } = useContext(GlobalStateContext);
 
   return (
     <>
       <Container className='sidebar'>
         <Row>
           <Col md={12}>
-            <FormUserName dispatchUsers={dispatchUsers} />
+            <FormUserName />
           </Col>
           <Col md={12}>
             <ListGroup className='mt-2' as="ul">
               {
-                users.names.length > 0 ?
-                  users.names.map((element, index) => (
-                    <UserItem key={element} user={element} dispatchUsers={dispatchUsers}></UserItem>
+                state.names.length > 0 ?
+                  state.names.map((element, index) => (
+                    <UserItem key={element} user={element}></UserItem>
                   )) : <ListGroup.Item>No users were added yet</ListGroup.Item>
               }
             </ListGroup >
@@ -32,4 +33,4 @@ const UsersList = () => {
 
 }
 
-export default (UsersList);
+export default UsersList;

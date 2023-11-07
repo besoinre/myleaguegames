@@ -1,22 +1,24 @@
 import React from 'react';
 import { ListGroup, Button, Form, Row, Col } from 'react-bootstrap';
 import useUsernamesInformation from '../../hooks/useUsernamesInformation'
-import ClassicSpinner from '../../components/spinner'
+import ClassicSpinner from '../globals/spinner'
 import { useTranslation } from 'react-i18next';
 import { GlobalStateContext } from '../../App';
 import { useContext } from 'react';
 import { BsFillTrashFill } from "react-icons/bs";
+import { ACTIONS } from '../../hooks/useGlobalState'
 
-const UserItem = ({ user, dispatchUsers }) => {
+const UserItem = ({ user }) => {
+
+    const { state, dispatchState } = useContext(GlobalStateContext);
 
     const [userData, isLoading, apiError] = useUsernamesInformation(user);
     const { t } = useTranslation();
-    const { globalState, setGlobalState } = useContext(GlobalStateContext);
-    const userSelected = userData.summonerData && globalState.selectedUserName === userData.summonerData.name
+    const userSelected = userData.summonerData && state.selectedUserName === userData.summonerData.name
 
     const deleteUserName = (e) => {
         e.preventDefault()
-        dispatchUsers({ type: "DELETE", userName: e.target.userName.value })
+        dispatchState([{ type: ACTIONS.DELETE_USER, userName: e.target.userName.value }])
     }
 
     return (
@@ -31,7 +33,7 @@ const UserItem = ({ user, dispatchUsers }) => {
                         <ListGroup.Item className='users-list user-item mb-2' as="li">
                             <Form onSubmit={(e) => deleteUserName(e)} className="d-flex justify-content-between align-items-start" >
                                 <div>
-                                    <p className='user-name-lvl'>API error loading {user} : {apiError.code}</p>
+                                    <p className='user-name'>API error loading {user} : {apiError.code}</p>
                                 </div>
                                 <Form.Control name="userName" type="text" value={user} readOnly className="d-none" />
                                 <Button variant="danger" type="submit" className='ms-2'>Delete</Button>
@@ -44,11 +46,21 @@ const UserItem = ({ user, dispatchUsers }) => {
                                     <ListGroup.Item
                                         className={(userSelected ? 'user-row-selected' : '') + ' user-item'}
                                         as="li"
-                                        onClick={() => { setGlobalState({ ...globalState, selectedUserId: userData.summonerData.id, selectedUserName: userData.summonerData.name, selectedPuuid: userData.summonerData.puuid }) }}
+                                        onClick={() => {
+                                            dispatchState([{
+                                                type: ACTIONS.DEFAULT_UPDATE, updateObject: {
+                                                    selectedUserId: userData.summonerData.id,
+                                                    selectedUserName: userData.summonerData.name,
+                                                    selectedPuuid: userData.summonerData.puuid
+                                                }
+                                            }])
+                                        }}
                                     >
                                         <Row>
                                             <Col md={4}>
-                                                <span className='user-name-lvl'>{userData.summonerData.name}</span>
+                                                <div className='user-name'>
+                                                    {userData.summonerData.name}
+                                                </div>
                                             </Col>
                                             <Col md={8}>
                                                 {userData.rankingData.map(element => {
@@ -84,4 +96,4 @@ const UserItem = ({ user, dispatchUsers }) => {
 
 }
 
-export default (UserItem);
+export default UserItem;

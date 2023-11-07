@@ -1,8 +1,9 @@
 import React from 'react';
 import { ListGroup, Container, Row, Col, Image } from 'react-bootstrap';
 import summonerSpells from '../../assets/summoner-spells.json'
-import TooltipDescription from '../../components/tooltip'
+import TooltipDescription from '../globals/tooltip'
 import runesReforged from '../../assets/runesReforged.json'
+import Username from '../globals/username';
 
 const ActiveGameTeam = ({ team, leftTeam }) => {
 
@@ -90,7 +91,9 @@ const ActiveGameTeam = ({ team, leftTeam }) => {
                                     }
                                 </Col>
                                 <Col md={"auto"}>
-                                    <div className="fw-bold">{participant.summonerName}</div>
+                                    <div className="fw-bold">
+                                        <Username name={participant.summonerName} id={participant.id} puuid={participant.puuid} />
+                                    </div>
                                     {
                                         participant.hasOwnProperty("rank") ?
                                             <>{participant.rank} {participant.lp}</>

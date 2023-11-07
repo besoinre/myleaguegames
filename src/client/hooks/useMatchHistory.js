@@ -4,6 +4,7 @@ import leagueAPI from '../api/leagueAPI';
 export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
 
     const [historyData, setHistoryData] = useState([])
+    const [historySummary, setHistorySummary] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [apiError, setApiError] = useState({})
     const isInitialRender = useRef(true);
@@ -12,8 +13,16 @@ export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
     let currentGameDate, currentFormattedGameDate
     let allMatches = []
     let games = []
-    let wins = 0
-    let loses = 0
+    let sessionWins = 0
+    let sessionLoses = 0
+    let sessionKills = 0
+    let sessionAssists = 0
+    let sessionDeaths = 0
+    let sessionCS = 0
+    let sessionTimePlayed = 0
+
+    let totalWins = 0
+    let totalLoses = 0
     let totalKills = 0
     let totalAssists = 0
     let totalDeaths = 0
@@ -33,7 +42,6 @@ export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
         }
 
         if (typeof encryptedSummonerId !== "undefined") {
-            console.log('loading : ' + isLoading)
             setIsLoading(true)
             setHistoryData([])
             setApiError({})
@@ -49,36 +57,71 @@ export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
                             allMatches.push({
                                 date: previousGameDate,
                                 games: games,
-                                wins: wins,
-                                loses: loses,
-                                totalKills: totalKills,
-                                totalAssists: totalAssists,
-                                totalDeaths: totalDeaths,
-                                totalCS: totalCS,
-                                totalTimePlayed: totalTimePlayed
+                                wins: sessionWins,
+                                loses: sessionLoses,
+                                totalKills: sessionKills,
+                                totalAssists: sessionAssists,
+                                totalDeaths: sessionDeaths,
+                                totalCS: sessionCS,
+                                totalTimePlayed: sessionTimePlayed
                             })
                             games = []
-                            wins = 0
-                            loses = 0
-                            totalKills = 0
-                            totalAssists = 0
-                            totalDeaths = 0
-                            totalCS = 0
-                            totalTimePlayed = 0
+                            sessionWins = 0
+                            sessionLoses = 0
+                            sessionKills = 0
+                            sessionAssists = 0
+                            sessionDeaths = 0
+                            sessionCS = 0
+                            sessionTimePlayed = 0
                         }
-                        (game.gameResult === "Win"
-                            ? wins++
-                            : loses++
-                        )
+                        if (game.gameResult === "Win") {
+                            sessionWins++
+                            totalWins++
+                        } else {
+                            sessionLoses++
+                            totalLoses++
+                        }
+                        sessionKills += selectedParticipant.kills
                         totalKills += selectedParticipant.kills
+
+                        sessionAssists += selectedParticipant.assists
                         totalAssists += selectedParticipant.assists
+
+                        sessionDeaths += selectedParticipant.deaths
                         totalDeaths += selectedParticipant.deaths
+
+                        sessionCS += selectedParticipant.totalMinionsKilled + selectedParticipant.neutralMinionsKilled
                         totalCS += selectedParticipant.totalMinionsKilled + selectedParticipant.neutralMinionsKilled
+
+                        sessionTimePlayed += (game.info.gameEndTimestamp - game.info.gameStartTimestamp)
                         totalTimePlayed += (game.info.gameEndTimestamp - game.info.gameStartTimestamp)
+
                         games.push({ game: game, selectedParticipant: selectedParticipant })
                         previousGameDate = currentFormattedGameDate
                     })
+                    allMatches.push({
+                        date: previousGameDate,
+                        games: games,
+                        wins: sessionWins,
+                        loses: sessionLoses,
+                        totalKills: sessionKills,
+                        totalAssists: sessionAssists,
+                        totalDeaths: sessionDeaths,
+                        totalCS: sessionCS,
+                        totalTimePlayed: sessionTimePlayed
+                    })
                     setHistoryData(allMatches)
+                    setHistorySummary(
+                        {
+                            totalKills,
+                            totalAssists,
+                            totalDeaths,
+                            totalCS,
+                            totalTimePlayed,
+                            totalWins,
+                            totalLoses
+                        }
+                    )
                     setIsLoading(false)
                 })
                 .catch(error => {
@@ -89,9 +132,10 @@ export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
         return () => {
             setIsLoading(true)
             setHistoryData([])
+            setHistorySummary({})
             setApiError({})
         }
     }, [encryptedSummonerId]);
 
-    return [historyData, isLoading, apiError]
+    return [historyData, historySummary, isLoading, apiError]
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import MatchItem from './match-item.component';
-import Kda from './kda.component';
+import Kda from '../globals/kda';
 
-const SessionMatches = ({ date, games, wins, loses, selectedUserId, totalKills, totalAssists, totalDeaths, totalCS, totalTimePlayed }) => {
-    
+const SessionMatches = (
+    { date, games, wins, loses, totalKills, totalAssists, totalDeaths, totalCS, totalTimePlayed }
+) => {
+
     return (
         <>
-            <div className='session-header d-flex justify-content-between'>
+            <div className='daily-session-header d-flex justify-content-between mb-1 p-3'>
                 <div className='d-flex flex-column'>
                     <span className='session-date'>{date}</span>
                     <span className='session-result'>{wins} <span className='game-won-text'>W</span> / {loses} <span className='game-lost-text'>L</span></span>
@@ -29,9 +31,8 @@ const SessionMatches = ({ date, games, wins, loses, selectedUserId, totalKills, 
             {
                 games.map((element, index) => (
                     <MatchItem
+                        key={"match-"+index+"-"+date}
                         game={element.game}
-                        key={selectedUserId + "-" + index}
-                        selectedUserId={selectedUserId}
                         selectedParticipant={element.selectedParticipant}
                     />
                 ))

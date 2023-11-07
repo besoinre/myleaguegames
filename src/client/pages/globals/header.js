@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Navbar } from 'react-bootstrap';
 import { BsSunFill, BsMoonFill } from "react-icons/bs";
 import { useContext } from 'react';
-import { GlobalThemeContext } from '../App';
+import { GlobalThemeContext } from '../../App';
 
 const Header = () => {
 
@@ -37,4 +37,4 @@ const Header = () => {
     );
 }
 
-export default (Header);
+export default Header;

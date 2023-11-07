@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Col, ListGroup, Row, Image, Collapse, Button } from 'react-bootstrap';
 import queuesJSON from '../../assets/queues.json'
 import { useTranslation } from 'react-i18next';
 import AdditionalMatchData from './additional-match-data.component';
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 import summonerSpells from '../../assets/summoner-spells.json'
-import TooltipDescription from '../../components/tooltip';
-import Kda from './kda.component';
+import TooltipDescription from '../globals/tooltip';
+import Kda from '../globals/kda';
+import { GlobalStateContext } from '../../App'
 
-const MatchItem = ({ game, selectedUserId, selectedParticipant }) => {
+const MatchItem = ({ game, selectedParticipant }) => {
+
+    const { state } = useContext(GlobalStateContext);
+
     const { t } = useTranslation();
     const optionsDate = {
         year: 'numeric',
@@ -63,13 +67,13 @@ const MatchItem = ({ game, selectedUserId, selectedParticipant }) => {
                             </TooltipDescription>
                         </Col>
                         <Col md={"auto"} className='ps-0'>
-                            <div key={selectedUserId}>
+                            <div key={state.selectedUserId}>
                                 <Col md={"auto d-flex flex-column p-0"}>
                                     {
                                         summonerSpellsData.filter((element) =>
                                             Number(element["key"]) === selectedParticipant.summoner1Id
-                                        ).map((element) => (
-                                            <TooltipDescription title={element.name}>
+                                        ).map((element, index) => (
+                                            <TooltipDescription title={element.name} key={"tooltip-"+index+"-"+element.id}>
                                                 <Image
                                                     width={"30px"}
                                                     src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
@@ -82,8 +86,8 @@ const MatchItem = ({ game, selectedUserId, selectedParticipant }) => {
                                     {
                                         summonerSpellsData.filter((element) =>
                                             Number(element["key"]) === selectedParticipant.summoner2Id
-                                        ).map((element) => (
-                                            <TooltipDescription title={element.name}>
+                                        ).map((element, index) => (
+                                            <TooltipDescription title={element.name} key={"tooltip-"+index+"-"+element.id}>
                                                 <Image
                                                     width={"30px"}
                                                     src={"http://ddragon.leagueoflegends.com/cdn/13.19.1/img/spell/" +
@@ -97,7 +101,7 @@ const MatchItem = ({ game, selectedUserId, selectedParticipant }) => {
                             </div>
                         </Col>
                         <Col md={"2"}>
-                            <div key={selectedUserId}>
+                            <div key={state.selectedUserId}>
                                 <p className='fw-bold mb-0'>
                                     {selectedParticipant.kills + "/" + selectedParticipant.deaths + "/" + selectedParticipant.assists}
                                 </p>
@@ -110,15 +114,16 @@ const MatchItem = ({ game, selectedUserId, selectedParticipant }) => {
                             </div>
                         </Col>
                         <Col md={"auto"}>
-                            <div key={selectedUserId}>
+                            <div key={state.selectedUserId}>
                                 {
-                                    itemKeys.map((element) =>
+                                    itemKeys.map((element, index) =>
                                     (
                                         selectedParticipant[element] !== 0 ?
                                             <Image
                                                 width={"40px"}
                                                 src={"http://ddragon.leagueoflegends.com/cdn/13.20.1/img/item/" + selectedParticipant[element] + ".png"}
                                                 alt={"item" + selectedParticipant[element]}
+                                                key={"item-"+index+"-"+selectedParticipant[element]}
                                             />
                                             : <></>
                                     ))
