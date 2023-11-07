@@ -25,7 +25,7 @@ const AdditionalMatchData = ({ game }) => {
 
     return (
         <Row>
-            <Col md={12} className='mb-3'>
+            <Col md={12} className='mb-3 participant-team'>
                 {
                     game.info.participants.filter((element) => element.teamId === 100).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
                         .map((participant) => (
@@ -42,7 +42,7 @@ const AdditionalMatchData = ({ game }) => {
 
             </Col>
             <hr />
-            <Col md={12}>
+            <Col md={12} className='participant-team'>
                 {
                     game.info.participants.filter((element) => element.teamId === 200).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
                         .map((participant) => (

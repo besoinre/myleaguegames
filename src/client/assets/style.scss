@@ -101,7 +101,7 @@
 
 .game-lost-bg {
   @include themify($themes) {
-    background: themed('gameLostBackground');
+    background: linear-gradient(180deg, themed('gameLostBackgroundStart'), themed('gameLostBackgroundEnd'));
   }
 }
 
@@ -113,7 +113,7 @@
 
 .game-won-bg {
   @include themify($themes) {
-    background: themed('gameWonBackground');
+    background: linear-gradient(180deg, themed('gameWonBackgroundStart'), themed('gameWonBackgroundEnd'));
   }
 }
 
@@ -168,7 +168,8 @@
 
 .participant-damage-bar {
   border-radius: 0rem;
-  height: 10px;
+  height: 6px;
+  border-radius: 1em;
 }
 
 .participant-item {
@@ -179,9 +180,16 @@
 }
 
 .participant-score-row {
-  font-size: 0.8em;
-  margin-bottom: 0.5em;
+  font-size: 0.8em; 
+  border-bottom: 1px solid #a8a8a8;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
 }
+
+.participant-team .participant-score-row:first-child, .participant-team .participant-score-row:first-child{
+  border-top: 1px solid #a8a8a8;
+}
+
 
 .participant-summoner-name {
   font-weight: bold;

@@ -123,7 +123,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                 </Row>
             </Col>
             <Col md={"1"} className='d-flex flex-column justify-content-center'>
-                <span className='participant-damage-dealt'>{participant.totalDamageDealtToChampions}</span>
+                <div className='participant-damage-dealt'>{participant.totalDamageDealtToChampions.toLocaleString('en-US', { style: 'decimal' })}</div>
                 <ProgressBar className="participant-damage-bar"
                     variant="danger"
                     max={maxDamageDealt}
@@ -131,7 +131,7 @@ const ParticipantScore = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                 />
             </Col>
             <Col md={"1"} className='d-flex flex-column justify-content-center'>
-                <span className='participant-damage-taken'>{participant.totalDamageTaken}</span>
+                <div className='participant-damage-taken'>{participant.totalDamageTaken.toLocaleString('en-US', { style: 'decimal' })}</div>
                 <ProgressBar className="participant-damage-bar"
                     variant="secondary"
                     max={maxDamageTaken}
