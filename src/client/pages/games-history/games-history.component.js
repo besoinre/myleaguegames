@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { Dropdown, ListGroup } from 'react-bootstrap';
 import { GlobalStateContext } from '../../App'
 import useGamesHistory from '../../hooks/useGamesHistory';
 import ClassicSpinner from '../globals/spinner';

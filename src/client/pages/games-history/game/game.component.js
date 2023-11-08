@@ -24,7 +24,7 @@ const Game = ({ game, selectedParticipant }) => {
         second: '2-digit'
     };
 
-    const gameDate = new Date(game.info.gameEndTimestamp).toLocaleDateString(undefined, optionsDate)
+    const gameDate = new Date(game.info.gameEndTimestamp).toLocaleDateString(undefined, optionsDate).slice(-8)
     const gameDuration =
         String(new Date(game.info.gameEndTimestamp - game.info.gameStartTimestamp).getMinutes()).padStart(2, '0')
         + ":"
@@ -62,10 +62,10 @@ const Game = ({ game, selectedParticipant }) => {
                         </Col>
                         <ChampionSummonerSpells
                             champion={game.championName}
-                            championSize={"60px"}
+                            championSize={"50px"}
                             spell1={selectedParticipant.summoner1Id}
                             spell2={selectedParticipant.summoner2Id}
-                            spellSize={"30px"}
+                            spellSize={"25px"}
                         />
                         <Col md={"2"}>
                             <div key={state.selectedUserId}>

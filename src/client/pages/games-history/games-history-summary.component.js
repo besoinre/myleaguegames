@@ -11,11 +11,10 @@ const GamesHistorySummary = (
                 <h1>Last 15 games</h1>
                 <div className=' d-flex justify-content-between'>
                     <div className='d-flex flex-column'>
-                        <span className='session-result'>
-                            {totalWins}
-                            <span className='game-won-text'>W</span>
+                        <span className='session-result'>{totalWins}
+                        <span className='game-won-text'> W </span>
                             / {totalLoses}
-                            <span className='game-lost-text'>L</span>
+                            <span className='game-lost-text'> L </span>
                         </span>
                     </div>
                     <div className='d-flex justify-content-between session-average'>

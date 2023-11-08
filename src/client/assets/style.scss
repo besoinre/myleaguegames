@@ -84,11 +84,6 @@
   border-radius: 0 0.5em 0.5em 0;
 }
 
-.empty-item {
-  display: inline-block;
-  background-color: transparent;
-}
-
 .full-session-header {
   @include themify($themes) {
     background: themed('fullSessionBackground');
@@ -173,8 +168,8 @@
 }
 
 .participant-item {
-  border: 1px solid #dedede;
-  margin-right: 2px
+  border: 1px solid #463F35;
+  margin-right: 1px
 }
 
 .participant-score-row {

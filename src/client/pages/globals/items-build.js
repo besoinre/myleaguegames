@@ -25,10 +25,13 @@ const ItemsBuild = ({ participant, size }) => {
             itemKeys.filter((element) => (
                 participant[element] === 0
             )).map((element, index) =>
-                <BsFillStopFill
-                    className='empty-item participant-item'
+                <Image
+                    alt="empty item"
+                    src="../empty_item.png"
+                    width={size}
+                    height={size}
+                    className='participant-item'
                     key={"emptyItem-" + index}
-                    size={size}
                 />
             )
         }
