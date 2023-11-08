@@ -1,10 +1,9 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import ParticipantScore from './participant-score.component';
+import ParticipantStats from './participant-stats.component';
+import { rolesOrder } from '../../../constants/constants';
 
-const AdditionalMatchData = ({ game }) => {
-
-    const rolesOrder = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"]
+const GameDetails = ({ game }) => {
 
     const maxDamageDealt = game.info.participants.reduce((acc, current) => {
         return Math.max(acc, current.totalDamageDealtToChampions);
@@ -27,9 +26,12 @@ const AdditionalMatchData = ({ game }) => {
         <Row>
             <Col md={12} className='mb-3 participant-team'>
                 {
-                    game.info.participants.filter((element) => element.teamId === 100).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
+                    game.info.participants
+                        .filter((element) => element.teamId === 100)
+                        .sort((a, b) =>
+                            rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
                         .map((participant) => (
-                            <ParticipantScore
+                            <ParticipantStats
                                 key={participant.summonerName}
                                 participant={participant}
                                 maxDamageDealt={maxDamageDealt}
@@ -39,14 +41,16 @@ const AdditionalMatchData = ({ game }) => {
                             />
                         ))
                 }
-
             </Col>
             <hr />
             <Col md={12} className='participant-team'>
                 {
-                    game.info.participants.filter((element) => element.teamId === 200).sort((a, b) => rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
+                    game.info.participants
+                        .filter((element) => element.teamId === 200)
+                        .sort((a, b) =>
+                            rolesOrder.indexOf(a.individualPosition) - rolesOrder.indexOf(b.individualPosition))
                         .map((participant) => (
-                            <ParticipantScore
+                            <ParticipantStats
                                 key={participant.summonerName}
                                 participant={participant}
                                 maxDamageDealt={maxDamageDealt}
@@ -59,7 +63,6 @@ const AdditionalMatchData = ({ game }) => {
             </Col>
         </Row>
     )
-
 }
 
-export default (AdditionalMatchData);
+export default React.memo(GameDetails);

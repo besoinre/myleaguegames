@@ -8,4 +8,4 @@ const TooltipDescription = ({ id, children, title }) => (
     </OverlayTrigger>
 );
 
-export default (TooltipDescription)
+export default React.memo(TooltipDescription)

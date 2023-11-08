@@ -1,7 +1,7 @@
 import React from 'react';
 import Kda from '../globals/kda';
 
-const MatchHistorySummary = (
+const GamesHistorySummary = (
     { totalWins, totalLoses, totalKills, totalDeaths, totalAssists, totalCS, totalTimePlayed }
 ) => {
 
@@ -11,7 +11,12 @@ const MatchHistorySummary = (
                 <h1>Last 15 games</h1>
                 <div className=' d-flex justify-content-between'>
                     <div className='d-flex flex-column'>
-                        <span className='session-result'>{totalWins} <span className='game-won-text'>W</span> / {totalLoses} <span className='game-lost-text'>L</span></span>
+                        <span className='session-result'>
+                            {totalWins}
+                            <span className='game-won-text'>W</span>
+                            / {totalLoses}
+                            <span className='game-lost-text'>L</span>
+                        </span>
                     </div>
                     <div className='d-flex justify-content-between session-average'>
                         <div className='d-flex flex-column align-items-center me-2'>
@@ -28,11 +33,10 @@ const MatchHistorySummary = (
                         </div>
                     </div>
                 </div >
-
             </div>
         </>
     );
 
 }
 
-export default (MatchHistorySummary);
+export default React.memo(GamesHistorySummary);

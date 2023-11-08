@@ -2,15 +2,15 @@ import React from 'react';
 import { useContext } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { GlobalStateContext } from '../../App'
-import useMatchHistory from '../../hooks/useMatchHistory';
+import useGamesHistory from '../../hooks/useGamesHistory';
 import ClassicSpinner from '../globals/spinner';
-import SessionMatches from './session-matches.component';
-import MatchHistorySummary from './match-history-summary.component';
+import GamesHistorySession from './games-history-session.component';
+import GamesHistorySummary from './games-history-summary.component';
 
-const MatchHistory = () => {
+const GamesHistory = () => {
 
     const { state } = useContext(GlobalStateContext);
-    const [historyData, historySummary, isLoading, apiError] = useMatchHistory(state.selectedPuuid, state.selectedUserId)
+    const [historyData, historySummary, isLoading, apiError] = useGamesHistory(state.selectedPuuid, state.selectedUserId)
     const historyLoaded = historyData.length > 0 && !isLoading && Object.keys(apiError).length === 0
 
     return (
@@ -21,7 +21,7 @@ const MatchHistory = () => {
                     :
                     historyLoaded ?
                         <>
-                            <MatchHistorySummary
+                            <GamesHistorySummary
                                 totalWins={historySummary.totalWins}
                                 totalLoses={historySummary.totalLoses}
                                 totalKills={historySummary.totalKills}
@@ -32,7 +32,7 @@ const MatchHistory = () => {
                             />
                             {
                                 historyData.map((session, index) => (
-                                    <SessionMatches
+                                    <GamesHistorySession
                                         key={"session-"+index}
                                         date={session.date}
                                         games={session.games}
@@ -55,4 +55,4 @@ const MatchHistory = () => {
 
 }
 
-export default MatchHistory;
+export default (GamesHistory);

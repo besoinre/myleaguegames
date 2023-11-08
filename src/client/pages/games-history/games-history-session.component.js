@@ -1,8 +1,8 @@
 import React from 'react';
-import MatchItem from './match-item.component';
+import Game from './game/game.component';
 import Kda from '../globals/kda';
 
-const SessionMatches = (
+const GamesHistorySession = (
     { date, games, wins, loses, totalKills, totalAssists, totalDeaths, totalCS, totalTimePlayed }
 ) => {
 
@@ -30,7 +30,7 @@ const SessionMatches = (
             </div>
             {
                 games.map((element, index) => (
-                    <MatchItem
+                    <Game
                         key={"match-"+index+"-"+date}
                         game={element.game}
                         selectedParticipant={element.selectedParticipant}
@@ -41,4 +41,4 @@ const SessionMatches = (
     )
 }
 
-export default (SessionMatches)
+export default React.memo(GamesHistorySession)

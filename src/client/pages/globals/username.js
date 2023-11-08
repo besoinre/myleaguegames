@@ -32,4 +32,4 @@ const Username = ({ name, id, puuid }) => {
     )
 }
 
-export default Username
+export default React.memo(Username)

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Header from './header';
 import ActiveGame from '../active-game/active-game.component';
 import { Col, Row } from 'react-bootstrap';
-import MatchHistory from '../game-history/match-history.component';
+import GamesHistory from '../games-history/games-history.component';
 import UsersList from '../users-list/users-list.component';
 import { useContext } from 'react';
 import { GlobalStateContext } from '../../App'
-import NoUserSelected from '../game-history/no-user-selected.component';
+import NoUserSelected from './no-user-selected.component';
 
 const Layout = () => {
 
@@ -35,7 +35,7 @@ const Layout = () => {
                                             <ActiveGame />
                                         </Col>
                                         <Col md={12}>
-                                            <MatchHistory />
+                                            <GamesHistory />
                                         </Col>
                                     </Row>
                                     :

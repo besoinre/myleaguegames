@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import leagueAPI from '../api/leagueAPI';
 
-export default function useMatchHistory(encryptedSummonerId, selectedUserId) {
+export default function useGamesHistory(encryptedSummonerId, selectedUserId) {
 
     const [historyData, setHistoryData] = useState([])
     const [historySummary, setHistorySummary] = useState({})

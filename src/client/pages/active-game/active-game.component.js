@@ -1,13 +1,13 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button, ListGroup } from 'react-bootstrap';
 import useActiveGame from '../../hooks/useActiveGame';
 import { GlobalStateContext } from '../../App'
 import queuesJSON from '../../assets/queues.json'
 import ClassicSpinner from '../globals/spinner';
-import ActiveGameTeam from '../active-game/active-game-team.component';
 import { useTranslation } from 'react-i18next';
 import { ACTIONS } from '../../hooks/useGlobalState';
+import ActiveGameParticipant from './active-game-participant';
 
 const ActiveGame = () => {
 
@@ -51,25 +51,45 @@ const ActiveGame = () => {
 
                     }
                     <Button className='themed-button'
-                        onClick={
-                            () => dispatchState(
-                                [{
-                                    type: ACTIONS.DEFAULT_UPDATE,
-                                    updateObject: { refresh: !state.refresh }
-                                }]
-                            )
-                        }
-                    >Refresh</Button>
+                        onClick={() => dispatchState(
+                            [{
+                                type: ACTIONS.DEFAULT_UPDATE,
+                                updateObject: { refresh: !state.refresh }
+                            }]
+                        )}
+                    >
+                        Refresh
+                    </Button>
                 </div>
                 {
                     isInGame ?
                         <Container className='mx-0'>
                             <Row>
                                 <Col md={6} className='px-0'>
-                                    <ActiveGameTeam team={gameData.teamsConfiguration[0]} leftTeam={true} />
+                                    <ListGroup horizontal>
+                                        <Container>
+                                            {gameData.teamsConfiguration[0].map((participant, index) =>
+                                                <ActiveGameParticipant
+                                                    participant={participant}
+                                                    leftTeam={true}
+                                                    key={"participant-" + index + "-0"}
+                                                />
+                                            )}
+                                        </Container>
+                                    </ListGroup>
                                 </Col>
                                 <Col md={6} className='px-0'>
-                                    <ActiveGameTeam team={gameData.teamsConfiguration[1]} leftTeam={false} />
+                                    <ListGroup horizontal>
+                                        <Container>
+                                            {gameData.teamsConfiguration[1].map((participant, index) =>
+                                                <ActiveGameParticipant
+                                                    participant={participant}
+                                                    leftTeam={false}
+                                                    key={"participant-" + index + "-1"}
+                                                />
+                                            )}
+                                        </Container>
+                                    </ListGroup>
                                 </Col>
                             </Row>
                         </Container>

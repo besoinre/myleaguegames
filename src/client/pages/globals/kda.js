@@ -25,4 +25,4 @@ const Kda = ({ kills, deaths, assists, kdaLabel=false }) => {
     )
 }
 
-export default (Kda)
+export default React.memo(Kda)

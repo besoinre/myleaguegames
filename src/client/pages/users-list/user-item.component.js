@@ -96,4 +96,4 @@ const UserItem = ({ user }) => {
 
 }
 
-export default UserItem;
+export default React.memo(UserItem);
