@@ -11,7 +11,7 @@ const leagueAPIeuw = axios.create({
 
 
 const leagueAPIeurope = axios.create({
-    baseURL: `https://europe.api.riotgames.com/lol/`,
+    baseURL: `https://europe.api.riotgames.com/`,
     headers: {
         accept: 'application/json',
         "X-Riot-Token": process.env.REACT_APP_API_KEY_RIOT

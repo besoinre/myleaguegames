@@ -21,7 +21,7 @@ const UsersList = () => {
               {
                 state.names.length > 0 ?
                   state.names.map((element, index) => (
-                    <UserItem key={element} user={element}></UserItem>
+                    <UserItem key={element.puuid} user={element}></UserItem>
                   )) : <ListGroup.Item>No users were added yet</ListGroup.Item>
               }
             </ListGroup >

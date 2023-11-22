@@ -2,7 +2,7 @@ import { useReducer, useEffect } from "react";
 import leagueAPI from '../api/leagueAPI';
 
 function getInitialState(initialValue) {
-    
+
     let storedValue = JSON.parse(localStorage.getItem("users"))
     return (storedValue ? { ...initialValue, names: storedValue } : { ...initialValue })
 }
@@ -20,33 +20,34 @@ function useGlobalState(initialValue) {
     useEffect(() => {
         leagueAPI.get(`/api/champions-position`)
             .then(response => {
-                dispatch([{type: ACTIONS.DEFAULT_UPDATE, updateObject: {patch: response.data}}])
+                dispatch([{ type: ACTIONS.DEFAULT_UPDATE, updateObject: { patch: response.data } }])
             })
             .catch(error => {
                 console.log(error)
             })
-        
+
     }, []);
 
     function usernamesReducer(state, actions) {
         let newUsersList;
-        let newState = {...state};
+        let newState = { ...state };
         actions.forEach(action => {
             switch (action.type) {
                 case ACTIONS.ADD_USER: {
-                    if (!newState.names.includes(action.userName)) {
+                    if (!newState.names.some(e => e["puuid"] === action.userName.puuid)) {
                         newUsersList = [action.userName, ...newState.names]
+                        console.log(newUsersList)
                         localStorage.setItem("users", JSON.stringify(newUsersList))
                         newState = {
                             ...newState,
                             names: newUsersList
-                        }                     
+                        }
                     }
                     break;
                 }
                 case ACTIONS.DELETE_USER: {
-                    if (newState.names.includes(action.userName)) {
-                        newUsersList = newState.names.filter((element) => element !== action.userName)
+                    if (newState.names.some(e => e["puuid"] === action.puuid)) {
+                        newUsersList = newState.names.filter((element) => element.puuid !== action.puuid)
                         localStorage.setItem("users", JSON.stringify(newUsersList))
                         newState = {
                             ...newState,
@@ -65,7 +66,7 @@ function useGlobalState(initialValue) {
                     break;
             }
         });
-        
+
         return newState
     }
     return [initialState, dispatch]

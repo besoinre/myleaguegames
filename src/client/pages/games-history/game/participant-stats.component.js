@@ -88,7 +88,7 @@ const ParticipantStats = ({ participant, maxDamageDealt, maxDamageTaken, gameDur
                 />
             </Col>
             <Col md={"auto"}>
-                <ItemsBuild participant={participant} size={"25px"} />
+                <ItemsBuild participant={participant} size={"30px"} />
             </Col>
         </Row >
     );

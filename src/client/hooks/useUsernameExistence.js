@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import leagueAPI from '../api/leagueAPI';
 
-export default function useUsernameExistence(userName) {
+export default function useUsernameExistence(userName, tag='lol') {
 
     const [userData, setUserData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -13,7 +13,7 @@ export default function useUsernameExistence(userName) {
         setApiError({})
         const delayDebounceFn = setTimeout(() => {
             if(userName.trim()!==""){
-                leagueAPI.get(`/api/user/existence/${userName}`)
+                leagueAPI.get(`/api/user/existence/${userName}/${tag}`)
                 .then(response => {
                     setUserData(response.data)
                     setApiError({})
@@ -27,7 +27,7 @@ export default function useUsernameExistence(userName) {
             }
         }, 500)
         return () => clearTimeout(delayDebounceFn)
-    }, [userName]);
+    }, [userName, tag]);
 
     return [userData, isLoading, apiError]
 }

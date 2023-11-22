@@ -12,13 +12,13 @@ const UserItem = ({ user }) => {
 
     const { state, dispatchState } = useContext(GlobalStateContext);
 
-    const [userData, isLoading, apiError] = useUsernamesInformation(user);
+    const [userData, isLoading, apiError] = useUsernamesInformation(user.puuid);
     const { t } = useTranslation();
     const userSelected = userData.summonerData && state.selectedUserName === userData.summonerData.name
 
     const deleteUserName = (e) => {
         e.preventDefault()
-        dispatchState([{ type: ACTIONS.DELETE_USER, userName: e.target.userName.value }])
+        dispatchState([{ type: ACTIONS.DELETE_USER, puuid: user.puuid }])
     }
 
     return (
@@ -33,9 +33,9 @@ const UserItem = ({ user }) => {
                         <ListGroup.Item className='users-list user-item mb-2' as="li">
                             <Form onSubmit={(e) => deleteUserName(e)} className="d-flex justify-content-between align-items-start" >
                                 <div>
-                                    <p className='user-name'>API error loading {user} : {apiError.code}</p>
+                                    <p className='user-name'>API error loading {user.name} #{user.tag} : {apiError.code}</p>
                                 </div>
-                                <Form.Control name="userName" type="text" value={user} readOnly className="d-none" />
+                                <Form.Control name="userName" type="text" value={user.name} readOnly className="d-none" />
                                 <Button variant="danger" type="submit" className='ms-2'>Delete</Button>
                             </Form>
                         </ListGroup.Item >
@@ -61,6 +61,9 @@ const UserItem = ({ user }) => {
                                                 <div className='user-name'>
                                                     {userData.summonerData.name}
                                                 </div>
+                                                <div className='tag-username'>
+                                                    #{user.tag}
+                                                </div>
                                             </Col>
                                             <Col md={8}>
                                                 {userData.rankingData.map(element => {
@@ -82,7 +85,6 @@ const UserItem = ({ user }) => {
                                                 })}
                                             </Col>
                                         </Row>
-                                        <Form.Control name="userName" type="text" value={user} readOnly className="d-none" />
                                     </ListGroup.Item >
                                 </Col>
                                 <Col md={2} className='ps-0'>

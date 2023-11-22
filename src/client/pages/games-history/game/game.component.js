@@ -89,8 +89,7 @@ const Game = ({ game, selectedParticipant }) => {
                         </Col>
                     </Row>
                     <Collapse in={showAdditionalData}>
-                        <div className='px-3 w-100'>
-                            <hr />
+                        <div className='p-2 w-100'>
                             <GameDetails game={game} />
                         </div>
                     </Collapse>

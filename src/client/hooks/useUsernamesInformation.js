@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import leagueAPI from '../api/leagueAPI';
 
-export default function useUsernamesInformation(userName) {
+export default function useUsernamesInformation(puuid) {
 
     const [userData, setUserData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [apiError, setApiError] = useState({})
 
     useEffect(() => {
-        leagueAPI.get(`/api/user/information/${userName}`)
+        leagueAPI.get(`/api/user/information/${puuid}`)
             .then(response => {                
                 setUserData(response.data)
                 setApiError({})

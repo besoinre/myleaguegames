@@ -9,7 +9,8 @@ import { ACTIONS } from '../../hooks/useGlobalState'
 const FormUserName = () => {
 
     const [newUserName, setNewUserName] = useState("");
-    const [userData, isLoading, apiError] = useUsernameExistence(newUserName)
+    const [tag, setTag] = useState("EUW");
+    const [userData, isLoading, apiError] = useUsernameExistence(newUserName, tag)
     const { dispatchState } = useContext(GlobalStateContext);
 
     let addUserName = (e) => {
@@ -17,11 +18,11 @@ const FormUserName = () => {
         if (Object.keys(apiError).length === 0 && !isLoading) {
             dispatchState(
                 [
-                    { type: ACTIONS.ADD_USER, userName: newUserName },
+                    { type: ACTIONS.ADD_USER, userName: {name: userData.gameName, tag: userData.tagLine, puuid: userData.puuid} },
                     {
                         type: ACTIONS.DEFAULT_UPDATE, updateObject: {
-                            selectedUserId: userData.id,
-                            selectedUserName: userData.name,
+                            selectedUserName: userData.gameName,
+                            selectedTag: userData.tagLine,
                             selectedPuuid: userData.puuid
                         }
                     }
@@ -35,16 +36,29 @@ const FormUserName = () => {
         setNewUserName(e.target.value)
     }
 
+    let tagInputOnChange = (e) => {
+        setTag(e.target.value)
+    }
+
     return (
         <>
             <Form onSubmit={addUserName} className="mt-2">
-
-                <input
-                    type="text" placeholder="Enter Username"
-                    required value={newUserName}
-                    onChange={userNameInputOnChange}
-                    className='username-input mb-1' />
-
+                <Row>
+                    <Col md={8} className='pe-0'>
+                        <input
+                            type="text" placeholder="Enter Username"
+                            required value={newUserName}
+                            onChange={userNameInputOnChange}
+                            className='username-input mb-1' />
+                    </Col>
+                    <Col md={4} className='ps-1'>
+                        <input
+                            type="text" placeholder="Enter Tag"
+                            required value={tag}
+                            onChange={tagInputOnChange}
+                            className='username-input mb-1' />
+                    </Col>
+                </Row>
                 {
                     newUserName.trim() !== "" && isLoading
                         ?
@@ -55,7 +69,7 @@ const FormUserName = () => {
                         newUserName.trim() !== "" && Object.keys(apiError).length !== 0
                             ?
                             <Card className='username-result username-not-found justify-content-center'>
-                                <Card.Body>User {newUserName} doesn't exist.</Card.Body>
+                                <Card.Body>User {newUserName} #{tag} doesn't exist.</Card.Body>
                             </Card>
                             :
                             newUserName.trim() !== "" && Object.keys(apiError).length === 0
@@ -68,7 +82,7 @@ const FormUserName = () => {
                                             </Col>
                                             <Col md={"auto"}>
                                                 <span>
-                                                    {userData.name} lv.{userData.summonerLevel}
+                                                    {userData.gameName} #{userData.tagLine}
                                                 </span>
                                             </Col>
                                         </Row>

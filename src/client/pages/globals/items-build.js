@@ -1,6 +1,5 @@
 import React from 'react'
 import { itemKeys, itemIconLink, trinketKey } from '../../constants/constants';
-import { BsFillStopFill } from 'react-icons/bs';
 import { Image } from 'react-bootstrap';
 
 const ItemsBuild = ({ participant, size }) => {

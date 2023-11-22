@@ -5,14 +5,15 @@ export const runesIconLink = (rune) =>
 export const championIconLink = (champion) => {
     const championNameReplacement = {
         Nunuwillump: "Nunu",
-        Monkeyking: "MonkeyKing",
-        Renataglasc: "Renata"
+        Renataglasc: "Renata",
+        KhaZix: "Khazix",
     }
 
-    champion = champion.replace(/[&'\s]/g, '').toLowerCase()
-    champion = champion.charAt(0).toUpperCase() + champion.slice(1).toLowerCase()
-    if (championNameReplacement.hasOwnProperty(champion))
+    champion = champion.replace(/[&'\s]/g, '')
+
+    if (championNameReplacement.hasOwnProperty(champion)) {
         champion = championNameReplacement[champion]
+    }
     return "http://ddragon.leagueoflegends.com/cdn/13.19.1/img/champion/" + champion + ".png"
 }
 

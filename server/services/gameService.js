@@ -49,11 +49,11 @@ function getActiveGame(encryptedSummonerId, res) {
 
 function getMatchHistory(puuid, res) {
     if (typeof puuid !== "undefined" && puuid.trim() !== "") {
-        leagueAPIeurope.get(`match/v5/matches/by-puuid/${puuid}/ids?queue=420&type=ranked&start=0&count=15`)
+        leagueAPIeurope.get(`lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&type=ranked&start=0&count=15`)
             .then(response => {
                 let gamePromises = [];
                 response.data.forEach((game) => {
-                    gamePromises.push(leagueAPIeurope.get(`match/v5/matches/${game}`));
+                    gamePromises.push(leagueAPIeurope.get(`lol/match/v5/matches/${game}`));
                 });
                 const gamesResponse = []
                 Promise.all(gamePromises)
