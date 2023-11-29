@@ -14,12 +14,13 @@ const UserItem = ({ user }) => {
 
     const [userData, isLoading, apiError] = useUsernamesInformation(user.puuid);
     const { t } = useTranslation();
-    const userSelected = userData.summonerData && state.selectedUserName === userData.summonerData.name
-
+    const userSelected = userData.accountData && state.selectedPuuid === userData.accountData.puuid
+    
     const deleteUserName = (e) => {
         e.preventDefault()
         dispatchState([{ type: ACTIONS.DELETE_USER, puuid: user.puuid }])
     }
+    console.log(apiError)
 
     return (
         <>
@@ -33,7 +34,7 @@ const UserItem = ({ user }) => {
                         <ListGroup.Item className='users-list user-item mb-2' as="li">
                             <Form onSubmit={(e) => deleteUserName(e)} className="d-flex justify-content-between align-items-start" >
                                 <div>
-                                    <p className='user-name'>API error loading {user.name} #{user.tag} : {apiError.code}</p>
+                                    <p className='user-name'>API error loading {user.name} #{user.tag} : {apiError.error}</p>
                                 </div>
                                 <Form.Control name="userName" type="text" value={user.name} readOnly className="d-none" />
                                 <Button variant="danger" type="submit" className='ms-2'>Delete</Button>
@@ -50,7 +51,8 @@ const UserItem = ({ user }) => {
                                             dispatchState([{
                                                 type: ACTIONS.DEFAULT_UPDATE, updateObject: {
                                                     selectedUserId: userData.summonerData.id,
-                                                    selectedUserName: userData.summonerData.name,
+                                                    selectedUserName: userData.accountData.gameName,
+                                                    selectedUserTag: userData.accountData.tagLine,
                                                     selectedPuuid: userData.summonerData.puuid
                                                 }
                                             }])
@@ -59,7 +61,7 @@ const UserItem = ({ user }) => {
                                         <Row>
                                             <Col md={4}>
                                                 <div className='user-name'>
-                                                    {userData.summonerData.name}
+                                                    {user.name}
                                                 </div>
                                                 <div className='tag-username'>
                                                     #{user.tag}

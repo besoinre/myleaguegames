@@ -56,6 +56,12 @@ function useGlobalState(initialValue) {
                     }
                     break;
                 }
+                case ACTIONS.UPDATE_USER: {
+                    let userIndex = newState.names.findIndex((element) => element.puuid === action.puuid)
+                    newState.names[userIndex].tag = action.tag 
+                    localStorage.setItem("users", JSON.stringify(newState.names))
+                    break;
+                }
                 case ACTIONS.DEFAULT_UPDATE:
                     newState = {
                         ...newState,

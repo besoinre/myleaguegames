@@ -18,11 +18,18 @@ const FormUserName = () => {
         if (Object.keys(apiError).length === 0 && !isLoading) {
             dispatchState(
                 [
-                    { type: ACTIONS.ADD_USER, userName: {name: userData.gameName, tag: userData.tagLine, puuid: userData.puuid} },
+                    {
+                        type: ACTIONS.ADD_USER,
+                        userName: {
+                            name: userData.gameName,
+                            tag: userData.tagLine,
+                            puuid: userData.puuid
+                        }
+                    },
                     {
                         type: ACTIONS.DEFAULT_UPDATE, updateObject: {
                             selectedUserName: userData.gameName,
-                            selectedTag: userData.tagLine,
+                            selectedUserTag: userData.tagLine,
                             selectedPuuid: userData.puuid
                         }
                     }

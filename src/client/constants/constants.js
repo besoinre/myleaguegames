@@ -7,6 +7,8 @@ export const championIconLink = (champion) => {
         Nunuwillump: "Nunu",
         Renataglasc: "Renata",
         KhaZix: "Khazix",
+        KaiSa: "Kaisa",
+        FiddleSticks: "Fiddlesticks"
     }
 
     champion = champion.replace(/[&'\s]/g, '')

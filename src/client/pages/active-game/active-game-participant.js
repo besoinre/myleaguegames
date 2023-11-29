@@ -18,6 +18,8 @@ const ActiveGameParticipant = ({ participant, leftTeam }) => {
         element["id"] == participant.perks["perkSubStyle"]
     )[0]
 
+    console.log(participant)
+
     return (
         <Row className={'active-game-row'} key={participant.summonerName}>
             <Col md={12} className={'active-game-participant ' + (leftTeam ? 'team-blue' : 'team-red')}>
@@ -38,7 +40,7 @@ const ActiveGameParticipant = ({ participant, leftTeam }) => {
                     />
                     <Col md={"auto"}>
                         <div className="fw-bold">
-                            <Username name={participant.summonerName}
+                            <Username name={participant.summonerName} tag={""}
                                 id={participant.id} puuid={participant.puuid} />
                         </div>
                         {

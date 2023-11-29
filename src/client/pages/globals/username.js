@@ -11,7 +11,7 @@ const Username = ({ name, id, puuid }) => {
     let addUserName = (e) => {
         e.preventDefault();
         dispatchState([
-            { type: ACTIONS.ADD_USER, userName: name },
+            { type: ACTIONS.ADD_USER, userName: { name: name, puuid: puuid } },
             {
                 type: ACTIONS.DEFAULT_UPDATE, updateObject: {
                     selectedUserId: id,

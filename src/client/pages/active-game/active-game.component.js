@@ -22,7 +22,7 @@ const ActiveGame = () => {
                 <div className="d-flex justify-content-between align-items-start">
                     <div>
                         <Card.Title>
-                            <strong>{state.selectedUserName}</strong> Active Game
+                            <strong>{state.selectedUserName} #{state.selectedUserTag}</strong> Active Game
                         </Card.Title>
                         <Card.Subtitle className="mb-2">
                             {
