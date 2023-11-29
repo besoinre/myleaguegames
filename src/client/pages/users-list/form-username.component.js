@@ -28,6 +28,7 @@ const FormUserName = () => {
                     },
                     {
                         type: ACTIONS.DEFAULT_UPDATE, updateObject: {
+                            selectedUserId: userData.id,
                             selectedUserName: userData.gameName,
                             selectedUserTag: userData.tagLine,
                             selectedPuuid: userData.puuid

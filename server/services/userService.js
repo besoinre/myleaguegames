@@ -3,7 +3,19 @@ const { leagueAPIeuw, leagueAPIeurope } = require('./leagueAPI')
 function checkSummonerExistence(userName, tag, res) {
     leagueAPIeurope.get(`riot/account/v1/accounts/by-riot-id/${userName}/${tag}`)
         .then(response => {
-            res.json(response.data)
+            const accountData = response.data
+            leagueAPIeuw.get(`summoner/v4/summoners/by-puuid/${accountData.puuid}`)
+                .then(response => {
+                    const mergedResponses = {
+                        ...response.data,
+                        ...accountData
+                    }
+                    res.json(mergedResponses)
+                })
+                .catch(error => {
+                    res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });
+                });
+
         })
         .catch(error => {
             res.status(500).json({ error: 'An error occurred while fetching data from the Riot API : ', error });

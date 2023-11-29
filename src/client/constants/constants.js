@@ -4,8 +4,8 @@ export const runesIconLink = (rune) =>
 
 export const championIconLink = (champion) => {
     const championNameReplacement = {
-        Nunuwillump: "Nunu",
-        Renataglasc: "Renata",
+        NunuWillump: "Nunu",
+        RenataGlasc: "Renata",
         KhaZix: "Khazix",
         KaiSa: "Kaisa",
         FiddleSticks: "Fiddlesticks"

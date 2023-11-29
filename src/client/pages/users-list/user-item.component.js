@@ -20,7 +20,6 @@ const UserItem = ({ user }) => {
         e.preventDefault()
         dispatchState([{ type: ACTIONS.DELETE_USER, puuid: user.puuid }])
     }
-    console.log(apiError)
 
     return (
         <>

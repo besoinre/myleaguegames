@@ -17,7 +17,6 @@ const ActiveGameParticipant = ({ participant, leftTeam }) => {
     const secondaryRune = runesReforged.filter((element) =>
         element["id"] == participant.perks["perkSubStyle"]
     )[0]
-
     console.log(participant)
 
     return (
@@ -40,8 +39,8 @@ const ActiveGameParticipant = ({ participant, leftTeam }) => {
                     />
                     <Col md={"auto"}>
                         <div className="fw-bold">
-                            <Username name={participant.summonerName} tag={""}
-                                id={participant.id} puuid={participant.puuid} />
+                            <Username name={participant.summonerName}
+                                id={participant.summonerId} puuid={participant.puuid} />
                         </div>
                         {
                             participant.hasOwnProperty("rank") ?

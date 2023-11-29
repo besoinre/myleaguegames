@@ -8,7 +8,7 @@ export default function useUsernamesInformation(puuid) {
     const [userData, setUserData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [apiError, setApiError] = useState({})
-    const { state, dispatchState } = useContext(GlobalStateContext);
+    const { dispatchState } = useContext(GlobalStateContext);
 
     useEffect(() => {
         leagueAPI.get(`/api/user/information/${puuid}`)

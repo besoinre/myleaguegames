@@ -36,7 +36,6 @@ function useGlobalState(initialValue) {
                 case ACTIONS.ADD_USER: {
                     if (!newState.names.some(e => e["puuid"] === action.userName.puuid)) {
                         newUsersList = [action.userName, ...newState.names]
-                        console.log(newUsersList)
                         localStorage.setItem("users", JSON.stringify(newUsersList))
                         newState = {
                             ...newState,
@@ -67,6 +66,7 @@ function useGlobalState(initialValue) {
                         ...newState,
                         ...action.updateObject
                     }
+                    console.log(newState)
                     break;
                 default:
                     break;
